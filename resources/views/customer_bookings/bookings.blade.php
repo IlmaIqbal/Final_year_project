@@ -18,6 +18,21 @@
 
                         <tbody>
                             <tr>
+                                <td> Customer name:</td>
+                                <td id="customer_name"></td>
+
+                            </tr>
+                            <tr>
+                                <td> Customer email:</td>
+                                <td id="customer_email"></td>
+
+                            </tr>
+                            <tr>
+                                <td> Phone Number:</td>
+                                <td id="phone_no"></td>
+
+                            </tr>
+                            <tr>
                                 <td> Event Type:</td>
                                 <td id="event_type"></td>
 
@@ -37,7 +52,10 @@
                                 <td> Event End Date: </td>
                                 <td id="end_date"></td>
                             </tr>
-
+                            <tr>
+                                <td> Event Duration:</td>
+                                <td id="event_duration"></td>
+                            </tr>
 
                         </tbody>
                         <!-- Venue Selection -->
@@ -128,6 +146,8 @@
                                 <a href="{{ route('customer_bookings.payment')}}" class="btn btn-primary">
                                     <span>Checkout</span>
                                 </a>
+                                <button id="cancelButton" class="btn btn-danger">Cancel</button>
+
                             </div>
                         </div>
                     </div>
@@ -141,10 +161,15 @@
     document.addEventListener('DOMContentLoaded', function() {
         const eventData = JSON.parse(localStorage.getItem('eventData'));
         if (eventData) {
+            document.getElementById('customer_name').innerText = eventData.customer_name;
+            document.getElementById('customer_email').innerText = eventData.customer_email;
+            document.getElementById('phone_no').innerText = eventData.phone_no;
+
             document.getElementById('event_type').innerText = eventData.event_type;
             document.getElementById('guest_no').innerText = eventData.guest_no;
             document.getElementById('start_date').innerText = eventData.start_date;
             document.getElementById('end_date').innerText = eventData.end_date;
+            document.getElementById('event_duration').innerText = eventData.event_duration;
 
             document.getElementById('venue').innerText = eventData.venue_name;
             document.getElementById('venue_location').innerText = eventData.venue_location;
@@ -166,6 +191,17 @@
                 parseFloat(eventData.entertainment_price || 0);
             document.getElementById('total').innerText = 'Rs. ' + totalPrice.toFixed(2);
         }
+    });
+</script>
+<script>
+    document.getElementById('cancelButton').addEventListener('click', function() {
+        // Remove the specific item from localStorage
+        localStorage.removeItem('eventData'); // Replace 'yourKey' with the actual key name you want to remove
+
+        // Optionally, display a message or take any other action after deletion
+        alert('Are you sure you want to cancel the booking?');
+
+        window.location.href = '/user/event_book';
     });
 </script>
 @endsection

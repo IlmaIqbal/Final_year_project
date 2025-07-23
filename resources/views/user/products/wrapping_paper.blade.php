@@ -17,34 +17,87 @@
                 <div class="col-md-4 mb-3">
 
                     <div class="card">
-                        <img class="img-fluid" alt="100%x280" src="/image/{{ $box->image }}">
+                        <img class="img-fluid" alt="100%x280" src="{{ asset('image/' .$box->product->image) }}">
                         <div class="card-body">
-                            <h4 class="card-title">{{ $box->name }}</h4>
-                            <p class="card-text">{{ $box->detail }}</p>
-                            <p><strong>Rs.{{ $box->price }}</strong></p>
-                            <a href="#" class="btn btn-outline-primary" style="margin-bottom: 10px;">Bouquet Details</a>
-
-                            <form action="{{route('products.add_cart_wrapping', $box->id )}}" method="Post">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <input type="number" name="quantity" value="1" min="1" style="width: 100px; margin-right: 10px;">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="submit" class="btn btn-outline-primary" value="Add to Cart">
-                                    </div>
+                            <h4 class="card-title">{{ $box->product->name }}</h4>
+                            <p class="card-text">{{ $box->product->detail }}</p>
+                            <p><strong>Rs.{{ $box->sell_price }}</strong></p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{{route('user.products.item_details', $box->id)}}"
+                                        class="btn btn-success rounded-pill" style="width: 150px; height: 40px;">Box
+                                        Details</a>
                                 </div>
+                                <div class="col-md-4">
+                                    @if ($box->qty > $box->issue_qty)
+                                    <button class="btn btn-primary rounded-pill add-to-cart"
+                                        style="width: 150px; height: 40px;" data-id="{{ $box->id }}"
+                                        data-name="{{ $box->product->name }}" data-detail="{{ $box->product->detail }}"
+                                        data-price="{{ $box->sell_price }}"
+                                        data-image="/image/{{ $box->product->image }}">
+                                        Add to cart
+                                    </button>
+                                    @else
+                                    <span class="badge badge-danger rounded-pill"
+                                        style="width: 150px; height: 40px;">Out of
+                                        Stock</span>
+                                    @endif
 
-                            </form>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-
-
                 </div>
-                @endforeach()
+                @endforeach
             </div>
         </div>
     </div>
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const id = button.dataset.id;
+                const name = button.dataset.name;
+                const detail = button.dataset.detail;
+                const price = parseFloat(button.dataset.price);
+                const image = button.dataset.image;
+                const quantityInput = document.querySelector(`.quantity[data-id="${id}"]`);
+                const quantity = quantityInput ? quantityInput.value : 1;
+
+                const boxItem = {
+                    id: id,
+                    type: 'wrapping_paper',
+                    name: name,
+                    detail: detail,
+                    price: price,
+                    image: image,
+                    quantity: parseInt(quantity),
+                };
+
+                // Retrieve existing cart from local storage
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                // Check if the item is already in the cart
+                const existingItemIndex = cart.findIndex(item => item.id === id && item.type ===
+                    'wrapping_paper');
+                if (existingItemIndex >= 0) {
+                    // Update quantity if item exists
+                    cart[existingItemIndex].quantity += boxItem.quantity;
+                } else {
+                    // Add new item to the cart
+                    cart.push(boxItem);
+                }
+
+                // Save updated cart back to local storage
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                alert('Added to cart');
+            });
+        });
+    });
+</script>
 @endsection

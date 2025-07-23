@@ -11,9 +11,12 @@ class Booking extends Model
 
     protected $fillable = [
         'user_id',
-        'name',
-        'email',
-        'phone',
+        'user_name',
+        'user_email',
+
+        'customer_name',
+        'customer_email',
+        'phone_no',
 
         'event_type',
         'guest_no',
@@ -22,10 +25,10 @@ class Booking extends Model
 
         'venue_id',
         'venue_name',
-        'location',
+        'venue_location',
         'venue_price',
 
-        'catering_service_id',
+        'catering_id',
         'catering_name',
         'catering_price',
 
@@ -36,5 +39,7 @@ class Booking extends Model
         'entertainment_id',
         'entertainment_name',
         'entertainment_price',
+        'total_price',
+        'status',
     ];
 }

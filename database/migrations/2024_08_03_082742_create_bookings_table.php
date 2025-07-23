@@ -15,9 +15,9 @@ return new class extends Migration
 
             $table->id();
             $table->string('user_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('user_name')->nullable();
+            $table->string('user_email')->nullable();
+            $table->string('user_phone')->nullable();
 
             $table->string('event_type')->nullable();
             $table->string('guest_no')->nullable();
@@ -26,10 +26,10 @@ return new class extends Migration
 
             $table->string('venue_id')->nullable();
             $table->string('venue_name')->nullable();
-            $table->string('location')->nullable();
+            $table->string('venue_location')->nullable();
             $table->string('venue_price')->nullable();
 
-            $table->string('catering_service_id')->nullable();
+            $table->string('catering_id')->nullable();
             $table->string('catering_name')->nullable();
             $table->string('catering_price')->nullable();
             $table->string('decoration_id')->nullable();
@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('entertainment_id')->nullable();
             $table->string('entertainment_name')->nullable();
             $table->string('entertainment_price')->nullable();
-
+            $table->decimal('total_price', 10, 2);
             $table->timestamps();
         });
     }

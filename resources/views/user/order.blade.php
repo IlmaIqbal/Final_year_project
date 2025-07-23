@@ -121,7 +121,7 @@
     <div class="padding">
         <div class="row  d-flex justify-content-center">
             <div class="col-lg-8 grid-margin stretch-card">
-                <div class="card">
+                <div class="">
                     <div class="card-body">
                         <h4 class="card-title">Order Details</h4>
 
@@ -133,23 +133,43 @@
                                         <th>Email</th>
                                         <th>Address</th>
                                         <th>Order Number</th>
-                                        <th>Product Name</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
+
+                                        <th>Total Price</th>
+                                        <th>Payment</th>
+                                        <th>Paid At</th>
+                                        <th>Delivered At</th>
                                         <th>Delivery Status</th>
+                                        <th> </th>
+                                        <th> </th>
+
                                     </tr>
                                 </thead>
                                 @foreach ($orders as $order )
 
                                 <tbody>
                                     <tr>
-                                        <td>{{$order->name}}</td>
-                                        <td>{{$order->email}}</td>
-                                        <td>{{$order->address1}} {{$order->address2}}</td>
+                                        <td>{{$order->user_name}}</td>
+                                        <td>{{$order->user_email}}</td>
+                                        <td>{{$order->user_address}}</td>
                                         <td>{{$order->id}}</td>
-                                        <td>{{$order->product_name}}</td>
-                                        <td>{{$order->quantity}}</td>
-                                        <td> Rs.{{$order->price}} </td>
+                                        <td> Rs.{{$order->total_price}} </td>
+                                        <td>
+                                            @if ($order->payment=="Pending")
+                                            <label class="badge badge-warning">{{$order->payment}}</label>
+
+                                            @else
+                                            <label class="badge badge-success">{{$order->payment}}</label>
+
+                                            @endif
+
+                                        </td>
+                                        <td>{{$order->paid_at}}</td>
+                                        <td>
+                                            @if ($order->updated_at != $order->created_at)
+                                            {{$order->updated_at}}
+                                            @endif
+
+                                        </td>
 
                                         <td>
                                             @if ($order->delivery=="Processing")
@@ -161,6 +181,18 @@
                                             @endif
 
                                         </td>
+                                        <td>
+                                            <a href="{{ route('user.order-details', ['orderId' => $order->id]) }}"
+                                                class="btn btn-primary">View</a>
+                                        </td>
+                                        <td>
+                                            @if ($order->payment_method == "BankTransfer")
+                                            <a href="{{ route('user.bank_recipe', ['orderId' => $order->id]) }}"
+                                                class="btn btn-success">Bank Recipe</a>
+
+                                            @endif
+                                        </td>
+
                                     </tr>
                                 </tbody>
                                 @endforeach
@@ -173,5 +205,7 @@
         </div>
     </div>
 </div>
-
+<div class="d-flex justify-content-center mt-4">
+    {!! $orders->links('pagination::bootstrap-5') !!}
+</div>
 @endsection

@@ -20,7 +20,7 @@ class EntertainmentController extends Controller
 
     public function entertainment_index()
     {
-        $entertainments = Entertainment::where('active', true)->get();
+        $entertainments = Entertainment::all();
         return view('customers.services.entertainment', compact('entertainments'));
     }
 

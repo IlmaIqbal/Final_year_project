@@ -10,8 +10,11 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <style>
         .navbar-nav .nav-item .nav-link {
@@ -71,6 +74,19 @@
             border-radius: 15px;
             padding: 5px 10px;
         }
+
+        .cart-count-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border-radius: 100%;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
     </style>
 </head>
 
@@ -80,13 +96,14 @@
         <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link select_link active" aria-current="page" href="{{ route('welcome') }}">Home</a>
+                            <a class="nav-link select_link " aria-current="page" href="{{ route('welcome') }}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link select_link" href="{{route('customers.customerVenue')}}">Venues</a>
@@ -103,7 +120,15 @@
                     </ul>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                         <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link select_link cart-icon" href="{{ route('cart') }}"
+                                    style="position: relative;">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <span id="cart-badge" class="cart-count-badge">0</span>
+                                </a>
+                            </li>
                             @if (Route::has('login'))
                             <li class="nav-item">
                                 <a class="nav-link select_link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -129,18 +154,35 @@
         </main>
     </div>
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap1.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+
+
     <script>
-        document.querySelectorAll(".nav-item").forEach((item) => {
-            item.addEventListener("click", function() {
-                document.querySelector(".nav-item.active").classList.remove("active");
-                this.classList.add("active");
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartBadge = document.getElementById('cart-badge');
+
+            const updateCartBadge = () => {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                let itemCount = cart.length;
+
+                if (itemCount > 0) {
+                    cartBadge.textContent = itemCount;
+                    cartBadge.style.display = 'inline-block';
+                } else {
+                    cartBadge.style.display = 'none';
+                }
+            };
+
+            // Update badge when the page loads
+            updateCartBadge();
+
+            // Listen for storage changes (for updates from other pages)
+            window.addEventListener('storage', updateCartBadge);
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 </body>
 <footer>
     @include('user.partials.footer')

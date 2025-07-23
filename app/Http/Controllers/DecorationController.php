@@ -7,6 +7,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
 class DecorationController extends Controller
 {
     /**
@@ -20,7 +21,7 @@ class DecorationController extends Controller
 
     public function decoration_index()
     {
-        $decorations = Decoration::where('active', true)->get();
+        $decorations = Decoration::all();
         return view('customers.services.decoration', compact('decorations'));
     }
 

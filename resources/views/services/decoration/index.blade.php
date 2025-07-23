@@ -36,17 +36,17 @@ Services
                     </ul>
                     <a href="{{ route('services.decoration.edit', $decoration->id) }}" class="btn btn-warning">Edit</a>
                     @if ($decoration->active)
-                    <form action="{{ route('services.decoration.disable', $decoration->id) }}" method="POST" class="d-inline">
+                    <form action="{{ route('services.decoration.able', $decoration->id) }}" method="POST" class="d-inline">
                         @csrf
-                        @method('DELETE')
                         <button type="submit" class="btn btn-danger">Disable</button>
                     </form>
                     @else
-                    <form action="{{ route('decoration.enable', $decoration->id) }}" method="POST" class="d-inline">
+                    <form action="{{ route('decoration.able', $decoration->id) }}" method="POST" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-success">Enable</button>
                     </form>
                     @endif
+
                 </div>
             </div>
         </div>

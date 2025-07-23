@@ -20,10 +20,17 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::with('venue')->get();
+        $events = Booking::all();
         return view('events.index', compact('events'));
     }
 
+    public function customer_event()
+    {
+        $id = Auth::user()->id;
+
+        $events = Booking::where('user_id', '=', $id)->orderBy('created_at', 'desc')->paginate(10);
+        return view('user.event', compact('events'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -41,14 +48,17 @@ class EventController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'customer_name' => 'required',
-            'customer_email' => 'required',
-            'description' => 'nullable',
+            'user_name' => 'required',
+            'user_email' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
             'guest_no' => 'required',
             'event_type' => 'required',
             'venue_id' => 'required|exists:venues,id',
+            'venue_name' => 'required',
+            'venue_location' => 'required',
+            'venue_price' => 'required',
+            'catering_name' => 'required',
             'services' => 'required|array',
             'services.*' => 'exists:services,id',
             'venue_price' => 'required|numeric',
@@ -68,11 +78,7 @@ class EventController extends Controller
         return redirect()->route('events.service_selection');
     }
 
-    public function showServiceSelection()
-    {
-        $services = Service::all();
-        return view('events.service_selection', compact('services'));
-    }
+
 
     public function showPaymentPage(Request $request)
     {
@@ -153,9 +159,9 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(Booking $booking)
     {
-        return view('events.show', compact('events'));
+        return view('events.show', compact('booking'));
     }
 
     /**
@@ -208,7 +214,7 @@ class EventController extends Controller
 
 
 
-    public function showEventBooking()
+    public function showEventBooking($view)
     {
         $venues = Venue::where('active', true)->get();
         $caterings = Service::where('active', true)->get();
@@ -216,7 +222,7 @@ class EventController extends Controller
         $entertainments = Entertainment::where('active', true)->get();
         $user = Auth::user();
 
-        return view('user.event_book', [
+        return view($view, [
             'venues' => $venues,
             'caterings' => $caterings,
             'decorations' => $decorations,
@@ -234,6 +240,9 @@ class EventController extends Controller
             'service_id' => 'required|exists:services,id', // Assuming Service is your Catering model
             'decoration_id' => 'required|exists:decorations,id',
             'entertainment_id' => 'required|exists:entertainments,id',
+            'customer_name' => 'required|string',
+            'customer_email' => 'required|string',
+            'phone_no' => 'required|string',
             'event_type' => 'required|string',
             'guest_no' => 'required|integer|min:1',
             'start_date' => 'required|date',
@@ -252,7 +261,9 @@ class EventController extends Controller
         $event_books->name = $user->name;
         $event_books->email = $user->email;
         $event_books->user_id = $user->id;
-        $event_books->phone = $user->phone;
+        $event_books->customer_name = $user->customer_name;
+        $event_books->customer_email = $user->customer_email;
+        $event_books->phone_no = $user->phone_no;
 
         $event_books->event_type = $request->event_type;
         $event_books->guest_no = $request->guest_no;
@@ -276,6 +287,7 @@ class EventController extends Controller
         $event_books->entertainment_name = $entertainment->name;
         $event_books->entertainment_price = $entertainment->price;
 
+
         $event_books->save();
 
         return redirect()->back();
@@ -285,6 +297,12 @@ class EventController extends Controller
     {
         return view('customer_bookings.bookings');
     }
+
+    public function showCheckOut()
+    {
+        return view('events.checkOut');
+    }
+
     public function event_payment()
     {
         return view('customer_bookings.payment');

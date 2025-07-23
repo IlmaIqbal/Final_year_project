@@ -16,7 +16,7 @@ class BouquetController extends Controller
     {
         $bouquets = Bouquet::latest()->paginate(5);
 
-        return view('products.bouquet', compact('bouquets'))
+        return view('bouquet.bouquet', compact('bouquets'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -31,7 +31,7 @@ class BouquetController extends Controller
      */
     public function create()
     {
-        return view('products.bouquet_store');
+        return view('bouquet.bouquet_store');
     }
 
     /**
@@ -60,7 +60,7 @@ class BouquetController extends Controller
 
         Bouquet::create($input);
 
-        return redirect()->route('products.bouquet')
+        return redirect()->route('bouquet.bouquet')
             ->with('success', 'Product created successfully.');
     }
 
@@ -69,7 +69,7 @@ class BouquetController extends Controller
      */
     public function show(Bouquet $bouquet)
     {
-        return view('products.bouquet_show', compact('bouquet'));
+        return view('bouquet.bouquet_show', compact('bouquet'));
     }
 
     /**
@@ -77,7 +77,7 @@ class BouquetController extends Controller
      */
     public function edit(Bouquet $bouquet)
     {
-        return view('products.bouquet_edit', compact('bouquet'));
+        return view('bouquet.bouquet_edit', compact('bouquet'));
     }
 
     /**
@@ -105,23 +105,23 @@ class BouquetController extends Controller
 
         $bouquet->update($input);
 
-        return redirect()->route('products.bouquet')
+        return redirect()->route('bouquet.bouquet')
             ->with('success', 'Bouquet updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bouquet $bouquet)
+    public function bouquetDestroy(Bouquet $bouquet)
     {
         $bouquet->update(['active' => false]);
-        return redirect()->route('products.bouquet');
+        return redirect()->route('bouquet.bouquet');
     }
 
-    public function enable(Bouquet $bouquet)
+    public function bouquetEnable(Bouquet $bouquet)
     {
         $bouquet->update(['active' => true]);
-        return redirect()->route('products.bouquet');
+        return redirect()->route('bouquet.bouquet');
     }
 
     public function search(Request $request)
@@ -136,7 +136,7 @@ class BouquetController extends Controller
                 ->orWhere('price', 'like', "%$search%");
         })->paginate(10);
 
-        return view('products.bouquet', compact('bouquets', 'search'));
+        return view('bouquet.bouquet', compact('bouquets', 'search'));
     }
     public function add_cart_bouquet(Request $request, $id)
     {

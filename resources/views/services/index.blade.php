@@ -40,7 +40,6 @@ Services
                     @if ($service->active)
                     <form action="{{ route('services.destroy', $service->id) }}" method="POST" class="d-inline">
                         @csrf
-                        @method('DELETE')
                         <button type="submit" class="btn btn-danger">Disable</button>
                     </form>
                     @else

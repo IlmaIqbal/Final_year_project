@@ -38,7 +38,6 @@ Services
                     @if ($entertainment->active)
                     <form action="{{ route('services.entertainment.disable', $entertainment->id) }}" method="POST" class="d-inline">
                         @csrf
-                        @method('DELETE')
                         <button type="submit" class="btn btn-danger">Disable</button>
                     </form>
                     @else

@@ -13,8 +13,7 @@
 <body>
     <div>
         <h1>Thank you for your purchase</h1>
-        <p>Invoice #12345</p>
-        <p>April 17 2021</p>
+
         <table>
             <tr>
                 <td>Event Type:</td>
@@ -70,7 +69,12 @@
             </tr>
             <tr>
                 <td>Total:</td>
-                <td class="text-right fw-bold">{{ 'Rs. ' . number_format((float)($eventData['venue_price'] + $eventData['catering_price'] + $eventData['decoration_price'] + $eventData['entertainment_price']), 2) }}</td>
+                <td class="text-right fw-bold">{{ 'Rs. ' . number_format((float)(
+                    ($eventData['venue_price'] ?? 0) +
+                    ($eventData['catering_price'] ?? 0) +
+                    ($eventData['decoration_price'] ?? 0) +
+                    ($eventData['entertainment_price'] ?? 0)
+                    ), 2) }}</td>
             </tr>
         </table>
     </div>

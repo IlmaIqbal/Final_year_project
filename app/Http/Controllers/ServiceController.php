@@ -19,7 +19,7 @@ class ServiceController extends Controller
 
     public function catering_index()
     {
-        $services = Service::where('active', true)->get();
+        $services = Service::all();
         return view('customers.services.catering', compact('services'));
     }
 
@@ -36,7 +36,7 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store_catering(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -104,7 +104,7 @@ class ServiceController extends Controller
     /**
      * Enable and disable the specified resource from storage.
      */
-    public function destroy(Service $service)
+    public function disable(Service $service)
     {
         $service->update(['active' => false]);
         return redirect()->route('services.index')->with('success', 'Services Disabled');

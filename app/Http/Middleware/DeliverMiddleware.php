@@ -26,6 +26,18 @@ class DeliverMiddleware
             } else if (auth()->user()->role == 'front_office') {
 
                 return to_route('front_office.home');
+            } else if (auth()->user()->role == 'supplier') {
+
+                return to_route('supplier.home');
+            } else if (auth()->user()->role == 'cashier') {
+
+                return to_route('cashier.home');
+            } else if (auth()->user()->role == 'product_manager') {
+
+                return to_route('productManager.home');
+            } else if (auth()->user()->role == 'stock_keeper') {
+
+                return to_route('stockKeeper.home');
             }
         }
         return to_route('user.home');

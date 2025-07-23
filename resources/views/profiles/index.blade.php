@@ -24,7 +24,9 @@
             <a class="navbar-brand" href="{{ url('/admin/home') }}">
                 User Profile
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -40,21 +42,10 @@
 
 
 
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <i class="bi bi-person-fill"></i>
+                    <li class="nav-item">
+                        <a href="{{ route('user.home')}}"> <i class="bi bi-person-fill"></i>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
                     </li>
 
                 </ul>
@@ -72,7 +63,9 @@
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                         @php($profile_image = auth()->user()->profile_image)
                         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                            <img class="rounded-circle mt-5" width="150px" src="@if($profile_image == null) {{ asset("storage/profile_images/no-pic.png") }}  @else {{ asset("storage/$profile_image") }} @endif" id="image_preview_container">
+                            <img class="rounded-circle mt-5" width="150px"
+                                src="{{ $profile_image ? asset('profile_images/' . $profile_image) : asset('profile_images/no-pic.png') }}"
+                                id="image_preview_container">
 
                         </div>
 
@@ -94,30 +87,36 @@
 
                             <div class="col-md-6">
                                 <label class="labels">Name</label>
-                                <input type="text" name="name" class="form-control" placeholder="First name" value="{{ auth()->user()->name }}">
+                                <input type="text" name="name" class="form-control" placeholder="First name"
+                                    value="{{ auth()->user()->name }}">
                             </div>
                             <div class="col-md-6">
                                 <label class="labels">Email</label>
-                                <input type="text" name="email" disabled class="form-control" value="{{ auth()->user()->email }}" placeholder="Email">
+                                <input type="text" name="email" disabled class="form-control"
+                                    value="{{ auth()->user()->email }}" placeholder="Email">
                             </div>
                         </div>
                         <div class="row mt-2">
 
                             <div class="col-md-6">
                                 <label class="labels">Address Line 1</label>
-                                <input type="text" name="address1" class="form-control" value="{{ auth()->user()->address1 }}" placeholder="Address Line 1">
+                                <input type="text" name="address1" class="form-control"
+                                    value="{{ auth()->user()->address1 }}" placeholder="Address Line 1">
                             </div>
                             <div class="col-md-6">
                                 <label class="labels">Address Line 2</label>
-                                <input type="text" name="address2" class="form-control" value="{{ auth()->user()->address2 }}" placeholder="Address Line 2">
+                                <input type="text" name="address2" class="form-control"
+                                    value="{{ auth()->user()->address2 }}" placeholder="Address Line 2">
                             </div>
                             <div class="col-md-6">
                                 <label class="labels">Phone</label>
-                                <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ auth()->user()->phone }}">
+                                <input type="text" name="phone" class="form-control" placeholder="Phone Number"
+                                    value="{{ auth()->user()->phone }}">
                             </div>
                         </div>
 
-                        <div class="mt-5 text-center"><button id="btn" class="btn btn-success profile-button" type="submit">Save Profile</button>
+                        <div class="mt-5 text-center"><button id="btn" class="btn btn-success profile-button"
+                                type="submit">Save Profile</button>
                             <a href="{{ route('user.home')}}" class="btn btn-primary">Go Back</a>
                         </div>
 
@@ -141,7 +140,8 @@
                 <br>
                 <div class="form-group">
                     <label for="current_password">Current Password</label>
-                    <input type="password" class="form-control @error('current_password') is-invalid @enderror" id="current_password" name="current_password" placeholder="Enter Current password" required>
+                    <input type="password" class="form-control @error('current_password') is-invalid @enderror"
+                        id="current_password" name="current_password" placeholder="Enter Current password" required>
                     @error('current_password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -151,7 +151,8 @@
                 <br>
                 <div class="form-group">
                     <label for="new_password">New Password</label>
-                    <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" name="new_password" placeholder="Enter New Password" required>
+                    <input type="password" class="form-control @error('new_password') is-invalid @enderror"
+                        id="new_password" name="new_password" placeholder="Enter New Password" required>
                     @error('new_password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -161,7 +162,8 @@
                 <br>
                 <div class="form-group">
                     <label for="new_password_confirmation">Confirm New Password</label>
-                    <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" placeholder="Enter New password again" required>
+                    <input type="password" class="form-control" id="new_password_confirmation"
+                        name="new_password_confirmation" placeholder="Enter New password again" required>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Change Password</button>

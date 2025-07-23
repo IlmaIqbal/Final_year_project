@@ -1,10 +1,16 @@
-@extends('admin.navbar')
+@extends($layout)
 
 @section('title')
 All Orders
 @endsection
 @section('content')
+@if (session('success'))
+<div class="alert alert-success">{{ session('success') }}</div>
+@endif
 
+@if (session('error'))
+<div class="alert alert-danger">{{ session('error') }}</div>
+@endif
 <style>
     @import url('https://fonts.googleapis.com/css?family=Assistant');
 
@@ -72,20 +78,24 @@ All Orders
                         <thead>
                             <tr>
                                 <th>Order #</th>
-                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Address</th>
+                                <th>Delivery Address</th>
                                 <th>Phone</th>
-                                <th>Product Name</th>
-                                <th>Qty</th>
-                                <th>Price</th>
+
+                                <th>Total Price</th>
+                                <th>Order Status</th>
+                                <th>Payment Method</th>
                                 <th>Payment</th>
                                 <th>Delivery</th>
+                                <th>Issue Status</th>
                                 <th>Paid At</th>
+                                <th>Confirmed At</th>
                                 <th>Delivered At</th>
-                                <th>Delivered</th>
-
+                                <th>Issued At</th>
+                                <th>Paid By</th>
+                                <th>Confirmation</th>
+                                <th></th>
                             </tr>
                         </thead>
                         @foreach ($orders as $order)
@@ -93,37 +103,91 @@ All Orders
                         <tbody class="table-body">
                             <tr class="cell-1">
                                 <td>{{$order->id}}</td>
-                                <td>
-                                    <img class="img_size" src="/image/{{$order->image}}">
-                                </td>
-                                <td>{{$order->name}}</td>
-                                <td>{{$order->email}}</td>
-                                <td>{{$order->address1}} {{$order->address2}}</td>
+
+                                <td>{{$order->user_name}}</td>
+                                <td>{{$order->user_email}}</td>
+                                <td>{{$order->user_address}}</td>
                                 <td>{{$order->phone}}</td>
-                                <td>{{$order->product_name}}</td>
-                                <td>{{$order->quantity}}</td>
-                                <td>{{$order->price}}</td>
-                                <td>{{$order->payment}}</td>
-                                <td>{{$order->delivery}}</td>
-                                <td>{{$order->created_at}}</td>
+                                <td>{{$order->total_price}}</td>
                                 <td>
-                                    @if ($order->updated_at != $order->created_at)
-                                    {{$order->updated_at}}
+                                    @if ($order->order_status=="Pending")
+                                    <label class="badge badge-warning">{{$order->order_status}}</label>
+                                    @else
+                                    <label class="badge badge-success">{{$order->order_status}}</label>
+
+                                    @endif
+                                </td>
+                                <td>{{$order->payment_method}}</td>
+                                <td>
+                                    @if ($order->payment=="Pending")
+                                    <label class="badge badge-warning">{{$order->payment}}</label>
+                                    @else
+                                    <label class="badge badge-success">{{$order->payment}}</label>
+
                                     @endif
 
                                 </td>
-
                                 <td>
+                                    @if ($order->delivery=="Processing")
+                                    <label class="badge" style="background-color: #8B4513;">{{$order->delivery}}</label>
 
-                                    @if($order->delivery=="Processing")
-
-                                    <a class="btn btn-success" href="{{route('delivered', $order->id)}}" onclick="return confirm('Are you sure this product is delivered?')">Delivered</a>
+                                    @elseif ($order->delivery=="outForDelivery")
+                                    <label class="badge" style="background-color: #013273;">{{$order->delivery}}</label>
 
                                     @else
-
-                                    <p>Delivered</p>
+                                    <label class="badge "
+                                        style="background-color: #063d01;">{{$order->delivery}}</label>
 
                                     @endif
+
+
+                                </td>
+                                <td>
+                                    @if ($order->issue_status=="Ongoing")
+                                    <label class="badge"
+                                        style="background-color: #FFA500;">{{$order->issue_status}}</label>
+                                    @else
+                                    <label class="badge badge-success">{{$order->issue_status}}</label>
+
+                                    @endif
+
+                                </td>
+                                <td>{{$order->paid_at}}</td>
+                                <td>
+                                    {{$order->confirmed_at}}
+                                </td>
+                                <td>
+                                    {{$order->delivered_at}}
+                                </td>
+                                <td>
+                                    {{$order->issued_at}}
+                                </td>
+                                <td>
+                                    {{$order->paidBy->name ?? '_'}}
+                                </td>
+
+                                <td>
+                                    <form action="{{route('update_order_status', ['order' => $order->id])}}"
+                                        method="post">
+                                        @csrf
+                                        @method('PUT')
+
+                                        @if($order->order_status=="Pending")
+
+                                        <button class="btn btn-success" type="submit" name="action" value="Confirmed"
+                                            onclick="return confirm('Are you sure this product is available on the stack?')">Confirm</button>
+
+                                        @elseif ($order->order_status=="Confirmed")
+                                        <span>Confirmed</span>
+                                        @endif
+                                    </form>
+
+
+
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.order-details', ['orderId' => $order->id]) }}"
+                                        class="btn btn-info">View</a>
                                 </td>
                             </tr>
 
@@ -136,5 +200,7 @@ All Orders
         </div>
     </div>
 </div>
-
+<div class="d-flex justify-content-center mt-4">
+    {!! $orders->links('pagination::bootstrap-5') !!}
+</div>
 @endsection
