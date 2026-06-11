@@ -123,7 +123,7 @@ class GiftController extends Controller
         return redirect()->route('products.gift');
     }
 
-    public function enable(Gift $gift)
+    public function giftEnable(Gift $gift)
     {
         $gift->update(['active' => true]);
         return redirect()->route('products.gift');

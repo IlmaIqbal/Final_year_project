@@ -17,4 +17,8 @@ class Wrapping_paper extends Model
         'price',
         'active'
     ];
+    public function inventories()
+    {
+        return $this->morphMany(Inventory::class, 'product');
+    }
 }

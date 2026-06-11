@@ -19,4 +19,9 @@ class Gift extends Model
         'category',
 
     ];
+
+    public function inventories()
+    {
+        return $this->morphMany(Inventory::class, 'product');
+    }
 }

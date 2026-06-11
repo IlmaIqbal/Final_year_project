@@ -17,4 +17,8 @@ class Bouquet extends Model
         'active',
 
     ];
+    public function inventories()
+    {
+        return $this->morphMany(Inventory::class, 'product');
+    }
 }

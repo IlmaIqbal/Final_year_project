@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class InvoiceController extends Controller
 {
@@ -16,6 +17,7 @@ class InvoiceController extends Controller
             'guest_no' => 'required|integer|min=1',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
+            'event_duration' => 'required|string',
             'venue_name' => 'required|string',
             'venue_location' => 'required|string',
             'venue_price' => 'required|numeric',
@@ -37,22 +39,13 @@ class InvoiceController extends Controller
         return redirect()->route('invoice.show', ['id' => $event->id]);
     }
 
+
     public function downloadInvoice(Request $request)
     {
+
         $eventData = json_decode($request->eventData, true);
 
-        $defaultValues = [
-            'catering_name' => '',
-            'catering_price' => 0,
-            'decoration_name' => '',
-            'decoration_price' => 0,
-            'entertainment_name' => '',
-            'entertainment_price' => 0,
-        ];
-        $eventData = array_merge($defaultValues, $eventData);
-
         $pdf = PDF::loadView('invoice', compact('eventData'));
-
         return $pdf->download('invoice.pdf');
     }
 }

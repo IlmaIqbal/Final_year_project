@@ -20,7 +20,7 @@ class InvitationController extends Controller
 
     public function invitation_index()
     {
-        $invitations = invitation::where('active', true)->get();
+        $invitations = invitation::all();
         return view('customers.services.invitation', compact('invitations'));
     }
 

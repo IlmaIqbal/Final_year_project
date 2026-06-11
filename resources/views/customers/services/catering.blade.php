@@ -6,7 +6,12 @@
     @foreach ($services as $service)
     <div class="col-sm-3">
 
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; position:relative">
+            @if (!$service->active)
+            <div class="overlay">
+                <span class="unavailable-tag">Unavailable</span>
+            </div>
+            @endif
             <img src="{{ asset('storage/images/' . $service->image) }}" class="card-img-top" alt="{{ $service->name }}">
             <div class="card-body">
                 <h5 class="card-title text-bold">{{ $service->name }}</h5>

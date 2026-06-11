@@ -6,8 +6,13 @@
     @foreach ($entertainments as $entertainment)
     <div class="col-sm-3">
 
-        <div class="card" style="width: 18rem;">
-            <img src="{{ asset('storage/images/' . $entertainment->image) }}" class="card-img-top" alt="{{ $entertainment->name }}">
+        <div class="card" style="width: 18rem; position: relative">
+            @if (!$entertainment -> active)
+            <div class="overlay">
+                <span class="unavailable-tag">Unavailable</span>
+            </div>
+            @endif
+            <img src="{{ asset('storage/images/' . $entertainment->image) }}" class="card-img-top {{ $entertainment -> active ? '' : 'blur' }}">
             <div class="card-body">
                 <h5 class="card-title text-bold">{{ $entertainment->name }}</h5>
                 <p class="card-text">{{ $entertainment->description }}</p>
@@ -23,6 +28,5 @@
     @endforeach
 </div>
 <footer>
-    @include('user.partials.footer')
 </footer>
 @endsection

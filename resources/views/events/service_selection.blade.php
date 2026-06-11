@@ -1,3 +1,15 @@
+@extends('admin.navbar')
+
+@section('title')
+Services
+
+
+@endsection
+@section('content')
+
+
+@section('content')
+
 <div class="container">
     <!-- Services Section -->
     <h3>Select Services</h3>
@@ -30,8 +42,19 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const formData = localStorage.getItem('eventFormData');
+            if (formData) {
+                const parsedData = JSON.parse(formData);
+                console.log('Retrieved form data:', parsedData);
+                // Use the parsedData object as needed, e.g., display data or prefill fields.
+            }
+        });
+
         function toggleCardSelection(card) {
             $(card).toggleClass('selected');
+            updateSelectedServices();
+
         }
 
         function updateSelectedServices() {
@@ -39,14 +62,35 @@
             var totalServicePrice = 0;
 
             $('.service-card.selected').each(function() {
-                var serviceId = $(this).data('id');
-                var servicePrice = parseFloat($(this).find('.card-text strong').text().replace('Rs.', ''));
-                selectedServices.push(serviceId);
+                let serviceId = $(this).data('id');
+                let serviceName = $(this).find('.card-title').text().trim();
+                let servicePrice = parseFloat($(this).find('.card-text').eq(1).text().replace('Rs.', '').trim());
+
+                // Collect service data
+                selectedServices.push({
+                    id: serviceId,
+                    name: serviceName,
+                    price: servicePrice
+                });
+
                 totalServicePrice += servicePrice;
             });
 
+
+            // Save selected services and total price to localStorage
+            localStorage.setItem('selectedServices', JSON.stringify({
+                services: selectedServices,
+                totalPrice: totalServicePrice
+            }));
+
+            // Update hidden input fields
             $('#selected_services').val(JSON.stringify(selectedServices));
             $('#total_service_price').val(totalServicePrice);
         }
+
+        document.querySelector('form').addEventListener('submit', function() {
+            // Ensure data is updated before form submission
+            updateSelectedServices();
+        });
     </script>
     @endsection

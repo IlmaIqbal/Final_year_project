@@ -4,114 +4,114 @@
 
 
 <style>
-    body {
-        background-color: #f9f9fa
-    }
+body {
+    background-color: #f9f9fa
+}
 
-    .flex {
-        -webkit-box-flex: 1;
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto
-    }
+.flex {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto
+}
 
-    @media (max-width:991.98px) {
-        .padding {
-            padding: 1.5rem
-        }
-    }
-
-    @media (max-width:767.98px) {
-        .padding {
-            padding: 1rem
-        }
-    }
-
+@media (max-width:991.98px) {
     .padding {
-        padding: 5rem
+        padding: 1.5rem
     }
+}
 
-    .card {
-        box-shadow: none;
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        -ms-box-shadow: none
+@media (max-width:767.98px) {
+    .padding {
+        padding: 1rem
     }
+}
 
-    .pl-3,
-    .px-3 {
-        padding-left: 1rem !important
-    }
+.padding {
+    padding: 5rem
+}
 
-    .card {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-        word-wrap: break-word;
-        background-color: #fff;
-        background-clip: border-box;
-        border: 1px solid #d2d2dc;
-        border-radius: 0
-    }
+.card {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none
+}
 
-    .card .card-title {
-        color: #000000;
-        margin-bottom: 0.625rem;
-        text-transform: capitalize;
-        font-size: 0.875rem;
-        font-weight: 500
-    }
+.pl-3,
+.px-3 {
+    padding-left: 1rem !important
+}
 
-    .card .card-description {
-        margin-bottom: .875rem;
-        font-weight: 400;
-        color: #76838f
-    }
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #d2d2dc;
+    border-radius: 0
+}
 
-    p {
-        font-size: 0.875rem;
-        margin-bottom: .5rem;
-        line-height: 1.5rem
-    }
+.card .card-title {
+    color: #000000;
+    margin-bottom: 0.625rem;
+    text-transform: capitalize;
+    font-size: 0.875rem;
+    font-weight: 500
+}
 
-    .table-responsive {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        -ms-overflow-style: -ms-autohiding-scrollbar
-    }
+.card .card-description {
+    margin-bottom: .875rem;
+    font-weight: 400;
+    color: #76838f
+}
 
-    .table,
-    .jsgrid .jsgrid-table {
-        width: 100%;
-        max-width: 100%;
-        margin-bottom: 1rem;
-        background-color: transparent
-    }
+p {
+    font-size: 0.875rem;
+    margin-bottom: .5rem;
+    line-height: 1.5rem
+}
 
-    .table thead th,
-    .jsgrid .jsgrid-table thead th {
-        border-top: 0;
-        border-bottom-width: 1px;
-        font-weight: 500;
-        font-size: .875rem;
-        text-transform: uppercase
-    }
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar
+}
 
-    .table td,
-    .jsgrid .jsgrid-table td {
-        font-size: 0.875rem;
-        padding: .875rem 0.9375rem
-    }
+.table,
+.jsgrid .jsgrid-table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent
+}
 
-    .badge {
-        border-radius: 0;
-        font-size: 12px;
-        line-height: 1;
-        padding: .375rem .5625rem;
-        font-weight: normal
-    }
+.table thead th,
+.jsgrid .jsgrid-table thead th {
+    border-top: 0;
+    border-bottom-width: 1px;
+    font-weight: 500;
+    font-size: .875rem;
+    text-transform: uppercase
+}
+
+.table td,
+.jsgrid .jsgrid-table td {
+    font-size: 0.875rem;
+    padding: .875rem 0.9375rem
+}
+
+.badge {
+    border-radius: 0;
+    font-size: 12px;
+    line-height: 1;
+    padding: .375rem .5625rem;
+    font-weight: normal
+}
 </style>
 
 
@@ -121,7 +121,7 @@
     <div class="padding">
         <div class="row  d-flex justify-content-center">
             <div class="col-lg-8 grid-margin stretch-card">
-                <div class="card">
+                <div class="">
                     <div class="card-body">
                         <h4 class="card-title">Order Details</h4>
 
@@ -133,23 +133,31 @@
                                         <th>Email</th>
                                         <th>Address</th>
                                         <th>Order Number</th>
-                                        <th>Product Name</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
+
+                                        <th>Total Price</th>
+                                        <th>Paid At</th>
+                                        <th>Delivered At</th>
                                         <th>Delivery Status</th>
+                                        <th> </th>
+
                                     </tr>
                                 </thead>
                                 @foreach ($orders as $order )
 
                                 <tbody>
                                     <tr>
-                                        <td>{{$order->name}}</td>
-                                        <td>{{$order->email}}</td>
-                                        <td>{{$order->address1}} {{$order->address2}}</td>
+                                        <td>{{$order->user_name}}</td>
+                                        <td>{{$order->user_email}}</td>
+                                        <td>{{$order->user_address}}</td>
                                         <td>{{$order->id}}</td>
-                                        <td>{{$order->product_name}}</td>
-                                        <td>{{$order->quantity}}</td>
-                                        <td> Rs.{{$order->price}} </td>
+                                        <td> Rs.{{$order->total_price}} </td>
+                                        <td>{{$order->created_at}}</td>
+                                        <td>
+                                            @if ($order->updated_at != $order->created_at)
+                                            {{$order->updated_at}}
+                                            @endif
+
+                                        </td>
 
                                         <td>
                                             @if ($order->delivery=="Processing")
@@ -160,6 +168,10 @@
 
                                             @endif
 
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('user.order-details', ['orderId' => $order->id]) }}"
+                                                class="btn btn-primary">View</a>
                                         </td>
                                     </tr>
                                 </tbody>

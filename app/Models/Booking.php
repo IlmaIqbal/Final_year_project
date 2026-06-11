@@ -8,33 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'booking_id';
 
     protected $fillable = [
-        'user_id',
-        'name',
-        'email',
-        'phone',
+        'book_date',
+        'customer_id',
+        'total_price',
+        'offer',
+        'additional_price',
+        'status',
 
-        'event_type',
-        'guest_no',
-        'start_date',
-        'end_date',
-
-        'venue_id',
-        'venue_name',
-        'location',
-        'venue_price',
-
-        'catering_service_id',
-        'catering_name',
-        'catering_price',
-
-        'decoration_id',
-        'decoration_name',
-        'decoration_price',
-
-        'entertainment_id',
-        'entertainment_name',
-        'entertainment_price',
     ];
+    public function halls()
+    {
+        return $this->hasMany(Booking_hall::class, 'booking_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Booking_payment::class, 'booking_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'booking_id');
+    }
 }

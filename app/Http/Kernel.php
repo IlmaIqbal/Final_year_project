@@ -70,6 +70,10 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'front_office' => \App\Http\Middleware\Front_officeMiddleware::class,
         'deliver' => \App\Http\Middleware\DeliverMiddleware::class,
+        'supplier' => \App\Http\Middleware\SupplierMiddleware::class,
+        'cashier' => \App\Http\Middleware\CashierMiddleware::class,
+        'product_manager' => \App\Http\Middleware\Product_managerMiddleware::class,
+        'stock_keeper' => \App\Http\Middleware\Stock_keeperMiddleware::class,
 
 
     ];

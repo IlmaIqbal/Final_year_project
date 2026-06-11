@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Wrapping_paper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class WrappingPaperController extends Controller
 {
@@ -16,7 +17,7 @@ class WrappingPaperController extends Controller
     {
         $wrapping_papers = Wrapping_paper::latest()->paginate(5);
 
-        return view('products.wrapping', compact('wrapping_papers'))
+        return view('wrapping.wrapping', compact('wrapping_papers'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -30,7 +31,7 @@ class WrappingPaperController extends Controller
      */
     public function create()
     {
-        return view('products.wrapping_store');
+        return view('wrapping.wrapping_store');
     }
 
     /**
@@ -59,7 +60,7 @@ class WrappingPaperController extends Controller
 
         Wrapping_paper::create($input);
 
-        return redirect()->route('products.wrapping')
+        return redirect()->route('wrapping.wrapping')
             ->with('success', 'Product created successfully.');
     }
 
@@ -68,7 +69,7 @@ class WrappingPaperController extends Controller
      */
     public function show(Wrapping_paper $wrapping_paper)
     {
-        return view('products.wrapping_show', compact('wrapping_paper'));
+        return view('wrapping.wrapping_show', compact('wrapping_paper'));
     }
 
     /**
@@ -76,7 +77,7 @@ class WrappingPaperController extends Controller
      */
     public function edit(Wrapping_paper $wrapping_paper)
     {
-        return view('products.wrapping_edit', compact('wrapping_paper'));
+        return view('wrapping.wrapping_edit', compact('wrapping_paper'));
     }
 
     /**
@@ -104,7 +105,7 @@ class WrappingPaperController extends Controller
 
         $wrapping_paper->update($input);
 
-        return redirect()->route('products.wrapping')
+        return redirect()->route('wrapping.wrapping')
             ->with('success', 'Wrapping Paper updated successfully');
     }
 
@@ -114,13 +115,14 @@ class WrappingPaperController extends Controller
     public function destroy(Wrapping_paper $wrapping_paper)
     {
         $wrapping_paper->update(['active' => false]);
-        return redirect()->route('products.wrapping');
+        return redirect()->route('wrapping.wrapping');
     }
 
-    public function enable(Wrapping_paper $wrapping_paper)
+    public function wrappingEnable(Wrapping_paper $wrapping_paper)
     {
         $wrapping_paper->update(['active' => true]);
-        return redirect()->route('products.wrapping');
+        return redirect()->route('wrapping.wrapping');
+        Log::info('Re-enabled wrapping paper and redirected!');
     }
 
     /**    

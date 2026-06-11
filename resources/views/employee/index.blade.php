@@ -26,7 +26,7 @@ Employees
                             <th>Phone Number</th>
                             <th>Role</th>
                             <th>Start Date</th>
-
+                            <th>Action</th>
 
                         </tr>
                     </thead>
@@ -40,7 +40,11 @@ Employees
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->role }}</td>
                             <td>{{ $user->created_at }}</td>
-
+                            <td>
+                                <a class="btn btn-primary">View</a>
+                                <a class="btn btn-warning">Edit</a>
+                                <a class="btn btn-danger">Disable</a>
+                            </td>
                         </tr>
 
                         @endforeach
