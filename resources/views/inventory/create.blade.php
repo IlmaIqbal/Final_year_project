@@ -31,7 +31,11 @@ Add Inventory
         <!-- Product Dropdown (populated dynamically) -->
         <div class="form-group">
             <label for="product_id">Product</label>
+<<<<<<< HEAD
             <select id="product_id" name="product_id" class="form-select" required>
+=======
+            <select id="product" name="product_id" class="form-select" required>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 <option value="">-- Select Product --</option>
             </select>
         </div>
@@ -111,6 +115,7 @@ Add Inventory
 </div>
 
 <script>
+<<<<<<< HEAD
     document.getElementById('product_type').addEventListener('change', function() {
         const selectedType = this.value;
         const productDropdown = document.getElementById('product_id');
@@ -131,6 +136,28 @@ Add Inventory
                 });
         }
     });
+=======
+document.getElementById('product_type').addEventListener('change', function() {
+    const selectedType = this.value;
+    const productDropdown = document.getElementById('product');
+
+    // Clear previous options
+    productDropdown.innerHTML = '<option value="">-- Select Product --</option>';
+
+    if (selectedType) {
+        fetch(`/products/by-type/${selectedType}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(product => {
+                    const option = document.createElement('option');
+                    option.value = product.id;
+                    option.textContent = product.name;
+                    productDropdown.appendChild(option);
+                });
+            });
+    }
+});
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 </script>
 
 

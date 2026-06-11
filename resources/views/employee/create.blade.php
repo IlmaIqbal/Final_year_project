@@ -17,6 +17,7 @@ Employee Registration
 
                         <div class="row mb-3">
 
+<<<<<<< HEAD
                             <div class="col-md-2">
                                 <label for="name" class="col-form-label text-md-end">{{ __('Name') }}</label>
                             </div>
@@ -24,6 +25,11 @@ Employee Registration
                                 <input id="name" type="text" onkeypress="return isTextKey(event)"
                                     class="form-control @error('name') is-invalid @enderror" name="name"
                                     value="{{ old('name') }}" required autocomplete="name" autofocus>
+=======
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -32,6 +38,7 @@ Employee Registration
                                 @enderror
                             </div>
 
+<<<<<<< HEAD
                             <div class="col-md-2">
                                 <label for="nic" class="col-form-label text-md-end">{{ __('NIC') }}</label>
                             </div>
@@ -40,6 +47,15 @@ Employee Registration
                                 <input id="txtnic" type="text" class="form-control @error('nic') is-invalid @enderror"
                                     name="nic" value="{{ old('nic') }}" onblur="nicnumber()" required autocomplete="nic"
                                     autofocus>
+=======
+                        <div class="row mb-3">
+                            <label for="email"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" value="{{ old('email') }}" required autocomplete="email">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
                                 @error('nic')
                                 <span class="invalid-feedback" role="alert">
@@ -58,6 +74,7 @@ Employee Registration
                                 <input id="txtdob" type="date" class="form-control @error('dob') is-invalid @enderror"
                                     name="dob" value="{{ old('dob') }}" required autocomplete="dob">
 
+<<<<<<< HEAD
                                 @error('Day of Birth')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -71,6 +88,11 @@ Employee Registration
                                 <input id="txtgender" type="text"
                                     class="form-control @error('gender') is-invalid @enderror" name="gender"
                                     value="{{ old('gender') }}" required autocomplete="gender">
+=======
+                            <div class="col-md-6">
+                                <input id="nic" type="text" class="form-control @error('email') is-invalid @enderror"
+                                    name="nic" value="{{ old('nic') }}" required autocomplete="nic">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
                                 @error('gender')
                                 <span class="invalid-feedback" role="alert">
@@ -80,6 +102,7 @@ Employee Registration
                             </div>
                         </div>
                         <div class="row mb-3">
+<<<<<<< HEAD
 
                             <div class="col-md-2">
                                 <label for="email" class="col-form-label text-md-end">{{ __('Email ') }}</label>
@@ -88,6 +111,14 @@ Employee Registration
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                     name="email" onblur="emailValidation()" value="{{ old('email') }}" required
                                     autocomplete="email">
+=======
+                            <label for="phone"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
+                                    name="phone" value="{{ old('phone') }}" required autocomplete="phone">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -104,14 +135,30 @@ Employee Registration
                                     value="{{ old('phone') }}" required autocomplete="phone"
                                     onblur="phoneNumber('phone')">
 
+<<<<<<< HEAD
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
+=======
+                            <div class="col-md-6">
+                                <select id="role" class="form-select @error('role') is-invalid @enderror" name="role"
+                                    value="{{ old('role') }}" required autocomplete="role" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <option selected>Choose...</option>
+                                    <option value="deliver">Deliver</option>
+                                    <option value="front_office">Front Office</option>
+                                    <option value="product_manager">Product Manager</option>
+                                    <option value="stock_keeper">Stock Keeper</option>
+                                    <option value="cashier">Cashier</option>
+
+                                </select>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                             </div>
                         </div>
                         <div class="row mb-3">
+<<<<<<< HEAD
 
                             <div class="col-md-2">
                                 <label for="address" class="col-form-label text-md-end">{{ __('Address') }}</label>
@@ -124,6 +171,15 @@ Employee Registration
                                 <input id="address2" type="text"
                                     class="form-control @error('address') is-invalid @enderror" name="address2"
                                     value="{{ old('address') }}" required autocomplete="address">
+=======
+                            <label for="password"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password"
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    required autocomplete="new-password">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
                                 @error('address')
                                 <span class="invalid-feedback" role="alert">
@@ -133,6 +189,7 @@ Employee Registration
                             </div>
                             <div class="col-md-2">
 
+<<<<<<< HEAD
                                 <label for="role" class="col-form-label text-md-right ">{{ __('Designation') }}</label>
                             </div>
                             <div class="col-md-4">
@@ -155,6 +212,15 @@ Employee Registration
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
+=======
+                        <div class="row mb-3">
+                            <label for="password-confirm"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control"
+                                    name="password_confirmation" required autocomplete="new-password">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                             </div>
                         </div>
 

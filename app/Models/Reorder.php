@@ -15,6 +15,11 @@ class Reorder extends Model
         'requested_qty',
         'status',
         'supplier_approved',
+<<<<<<< HEAD
+=======
+        'Reorder_confirm_at',
+        'supplier_approved_at'
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
 
     ];
@@ -28,4 +33,8 @@ class Reorder extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76

@@ -12,6 +12,10 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         rel="stylesheet" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
@@ -153,10 +157,19 @@
         </main>
     </div>
     <script src="{{ asset('js/script.js') }}"></script>
+<<<<<<< HEAD
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+=======
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap1.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const cartBadge = document.getElementById('cart-badge');

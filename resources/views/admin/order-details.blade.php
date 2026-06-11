@@ -6,6 +6,7 @@ View Order
 @section('content')
 
 <style>
+<<<<<<< HEAD
     .gradient-custom {
         /* fallback for old browsers */
         background: #cd9cf2;
@@ -16,6 +17,18 @@ View Order
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         background: linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))
     }
+=======
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #cd9cf2;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))
+}
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 </style>
 
 <section class="h-100 gradient-custom">
@@ -42,7 +55,11 @@ View Order
 
                                 <div class="row">
                                     <div class="col-md-2">
+<<<<<<< HEAD
                                         <img src="{{ asset($item['image']) }}" class="img-fluid"
+=======
+                                        <img src="{{ asset('') }}{{ $item['image'] }}" class="img-fluid"
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                             alt="{{ $item['name'] }}">
                                     </div>
                                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
@@ -104,6 +121,27 @@ View Order
                             <p class="text-muted mb-0">Order Date : {{ $orders->created_at}}</p>
                         </div>
 
+<<<<<<< HEAD
+=======
+                        <div class="d-flex justify-content-between pt-2">
+                            <p class="fw-bold mb-0">Deliver Details</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between pt-2">
+                            <p class="text-muted mb-0">Deliver Name : {{ $orders->deliverBy->name ?? '' }}</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <p class="text-muted mb-0">Vehicle Number : {{ $orders->vehicle_no}}</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <p class="text-muted mb-0">Estimate Date : {{ $orders->estimate_date}}</p>
+                        </div>
+
+
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
                     </div>
                     <div class="card-footer border-0 px-4 py-5"

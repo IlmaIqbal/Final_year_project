@@ -22,7 +22,10 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+<<<<<<< HEAD
 use App\Http\Controllers\ProvinceController;
+=======
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 use App\Http\Controllers\ReorderController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
@@ -99,6 +102,13 @@ Route::get('user/order-confirmation', function () {
     return view('user.order-confirmation');
 })->name('order_confirmation');
 
+<<<<<<< HEAD
+=======
+Route::get('user/online-confirmation', function () {
+    return view('user.online-confirmation');
+})->name('online_confirmation');
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 Route::get('user/order-details', function () {
     return view('user.order-details');
 })->name('order-details');
@@ -109,10 +119,26 @@ Route::get('admin/admin-order-details', function () {
 
 Route::get('user/delivery_detail', function () {
     return view('user.delivery_detail');
+<<<<<<< HEAD
 })->name('user.delivery_detail');
 
 Route::get('/order/{order}', [OrderController::class, 'show_invoice'])->name('user.order-confirmation');
 Route::get('/orders/{orderId}', [OrderController::class, 'show_details'])->name('user.order-details');
+=======
+})->middleware('auth')->name('user.delivery_detail');
+
+Route::get('report/inventoryReport/inventoryReport', function () {
+    return view('report.inventoryReport.inventoryReport');
+})->name('report.inventoryReport.inventoryReport');
+
+
+Route::get('/order/{order}', [OrderController::class, 'show_invoice'])->name('user.order-confirmation');
+Route::get('/user/online-confirmation', [OrderController::class, 'onlineConfirmation'])->name('user.online-confirmation');
+
+Route::get('/orders/{orderId}', [OrderController::class, 'show_details'])->name('user.order-details');
+Route::get('/user/bank_recipe/{orderId}', [OrderController::class, 'bank_recipe'])->name('user.bank_recipe');
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 Route::get('/admin/orders/{orderId}', [OrderController::class, 'admin_order_details'])->name('admin.order-details');
 
 
@@ -178,8 +204,13 @@ Route::post('profile/password', [ProfileController::class, 'changePassword'])->n
 // Gift Route
 
 Route::get('products/index', [ProductController::class, 'index'])->name('products.index');
+<<<<<<< HEAD
 Route::get('products/store', [ProductController::class, 'create'])->name('products.create');
 Route::post('products/', [ProductController::class, 'store'])->name('products.store');
+=======
+Route::get('products/store', [ProductController::class, 'create'])->name('products.store');
+Route::post('store/', [ProductController::class, 'store'])->name('product.store');
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 Route::get('show/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('gift_edit/{product}', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('gift_edit/{product}', [ProductController::class, 'update'])->name('product.update');
@@ -195,6 +226,10 @@ Route::get('/product/find', [ProductController::class, 'find_product'])->name('f
 // Display in customer interface 
 
 Route::get('user/products/gift', [ProductController::class, 'customer_gift'])->name('user.products.gift');
+<<<<<<< HEAD
+=======
+Route::get('cart', [ProductController::class, 'cart_qty'])->name('cart');
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 Route::get('user/products/bouquet', [ProductController::class, 'customer_bouquet'])->name('user.products.bouquet');
 Route::get('user/products/wrapping_paper', [ProductController::class, 'customer_wrapping'])->name('user.products.wrapping_paper');
 Route::get('/product/{id}', [ProductController::class, 'item_details'])->name('user.products.item_details');
@@ -361,6 +396,13 @@ Route::get('productManager/notification/{id}', [NotificationController::class, '
 Route::get('stockKeeper/notification', [NotificationController::class, 'stock_index'])->name('stockKeeper.notification');
 Route::get('stockKeeper/notification/{id}', [NotificationController::class, 'stockKeeperRead'])->name('stockKeeper.notifications.read');
 
+<<<<<<< HEAD
+=======
+// Deliver Notification
+Route::get('deliver/deliverNotify', [NotificationController::class, 'deliver_index'])->name('deliver.deliverNotify');
+Route::get('deliver/notification/{id}', [NotificationController::class, 'deliverRead'])->name('deliver.notifications.read');
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 // Cashier notification
 Route::get('cashier/notification', [NotificationController::class, 'cashier_index'])->name('cashier.notification');
 Route::get('cashier/notification/{id}', [NotificationController::class, 'cashierRead'])->name('cashier.notifications.read');
@@ -385,16 +427,29 @@ Route::get('/remove_cart/{id}', [CartController::class, 'remove_cart'])->name('r
 // customer payment route
 Route::get('/user/payment', [PaymentController::class, 'index'])->name('user.payment');
 Route::get('/store_order', [PaymentController::class, 'store_order'])->name('store_order');
+Route::get('/return', [PaymentController::class, 'handleReturn']);
 
 //Order route for admin
 Route::get('admin/order', [OrderController::class, 'view_order'])->name('admin.order');
 Route::get('/delivered/{id}', [OrderController::class, 'delivered'])->name('delivered');
 Route::put('/order/{order}/update-status', [OrderController::class, 'update_order_status'])->name('update_order_status');
 Route::put('/order/{order}/issue-update', [OrderController::class, 'update_issue_status'])->name('update_issue_status');
+<<<<<<< HEAD
+=======
+Route::put('/order/{order}/update_delivery', [OrderController::class, 'update_delivery'])->name('update_delivery');
+Route::put('/order/{order}/order_delivered', [OrderController::class, 'order_delivered'])->name('order_delivered');
+Route::put('/order/{order}/recipe_update', [OrderController::class, 'recipe_update'])->name('recipe_update');
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
 //Order route for customer
 Route::get('user/order', [OrderController::class, 'customer_order'])->name('user.order');
 Route::post('/store_order', [OrderController::class, 'store'])->name('store_order');
+<<<<<<< HEAD
+=======
+
+// order route deliver
+Route::get('deliver/order', [OrderController::class, 'deliver_order'])->name('deliver.order');
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
 //Showing invoice after payment
 Route::get('emails/invoice', [RoleController::class, 'invoice'])->name('emails.invoice');
@@ -418,6 +473,11 @@ Route::get('events/create', [EventController::class, 'showEventBooking'])
     ->name('events.create')
     ->defaults('view', 'events.create');
 
+<<<<<<< HEAD
+=======
+Route::get('user/event', [EventController::class, 'customer_event'])->name('user.event');
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 // Route for the user interface
 Route::get('user/event_book', [EventController::class, 'showEventBooking'])
     ->name('user.event_book')
@@ -473,6 +533,10 @@ Route::post('/inventory/store', [InventoryController::class, 'store'])->name('in
 
 //For Stock page
 Route::get('/inventory/stock', [InventoryController::class, 'stock_index'])->name('inventory.stock');
+<<<<<<< HEAD
+=======
+Route::get('stockKeeper/order', [OrderController::class, 'stockKeeper_view_order'])->name('stockKeeper.order');
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
 //Inventory searching 
 Route::get('/inventory/search', [InventoryController::class, 'search'])->name('inventory.search');
@@ -496,6 +560,7 @@ Route::get('/report/sale/view', [ReportController::class, 'viewFilteredReport'])
 // Download PDF
 Route::get('/report/sale/pdf', [ReportController::class, 'downloadReport'])->name('report.saleReport.pdf');
 
+<<<<<<< HEAD
 //province
 Route::get('admin/province', [ProvinceController::class, 'index'])->name('admin.province'); // province table
 Route::get('province/store', [ProvinceController::class, 'create'])->name('province.create'); // add province form
@@ -522,3 +587,16 @@ Route::delete('division/{division_id}/disable', [ProvinceController::class, 'dis
 Route::post('division/{division_id}/enable', [ProvinceController::class, 'enableDivision'])->name('division.enable');
 Route::get('/division/{division_id}/edit', [ProvinceController::class, 'editDivision'])->name('division.edit');
 Route::put('/division/{division}', [ProvinceController::class, 'updateDivision'])->name('division.update');
+=======
+Route::get('/report/inventory/redirect', [ReportController::class, 'redirectToReport'])->name('report.inventoryReport.redirect');
+Route::get('/report/inventory/stock', [ReportController::class, 'stockLevel'])->name('report.inventoryReport.stockLevel');
+Route::get('/report/inventory/top-sell', [ReportController::class, 'topSellProduct'])->name('report.inventoryReport.topSellProduct');
+Route::get('/report/inventory/reorder', [ReportController::class, 'reorder'])->name('report.inventoryReport.reorderReport');
+
+Route::get('/report/inventory/pdf', [ReportController::class, 'downloadInventoryReport'])->name('report.inventoryReport.pdf');
+Route::get('/report/topSell/pdf', [ReportController::class, 'downloadTopSellProductReport'])->name('report.topSellReport.pdf');
+Route::get('/report/reorder/pdf', [ReportController::class, 'downloadReorderReport'])->name('report.reorderReport.pdf');
+
+Route::get('/user/review/{order}', [FeedBackController::class, 'rateProduct'])->name('user.review');
+Route::post('/user/add-rating', [FeedBackController::class, 'add_rating'])->name('add-rating');
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76

@@ -14,12 +14,13 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap5.min.css') }}" />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-icons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.1/css/boxicons.min.css">
+    <link href="{{ asset('css/fullcalendar.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/boxicons.min.css') }}" rel="stylesheet">
+
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
@@ -270,7 +271,11 @@
                     Orders
                 </a>
             </li>
+            @endif
+
+            @if (Auth::user()->role === 'admin')
             <li class="sidebar-item">
+<<<<<<< HEAD
                 <a href="{{route('admin.province')}}">
                     <!-- mainly date and time for order history -->
                     <i class="fa fa-map-marker pe-2"></i>
@@ -281,6 +286,8 @@
 
             @if (Auth::user()->role === 'admin')
             <li class="sidebar-item">
+=======
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 <a href="{{route('admin.feeds')}}">
                     <!-- Feedback for admin panel-->
                     <i class="fa-solid fa-comments"></i>

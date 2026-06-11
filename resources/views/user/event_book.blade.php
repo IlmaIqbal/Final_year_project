@@ -188,6 +188,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", function() {
     const currentDateTime = new Date();
 
@@ -219,6 +220,80 @@ document.getElementById('myForm').addEventListener('submit', function(e) {
         saveEventDataToLocalStorage(); // Save to local storage if valid
     } else {
         this.classList.add('was-validated'); // Apply Bootstrap validation styling
+=======
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentDateTime = new Date();
+
+        flatpickr("#start_date", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+            minDate: currentDateTime, // Disable past dates for the start date
+            onChange: function(selectedDates, dateStr) {
+                // Update the minDate for the end date picker dynamically
+                endDatePicker.set("minDate", dateStr);
+            },
+        });
+
+        const endDatePicker = flatpickr("#end_date", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+            minDate: currentDateTime, // Disable past dates for the end date
+        });
+    });
+</script>
+
+<script>
+    document.getElementById('myForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        if (this.checkValidity()) {
+            saveEventDataToLocalStorage(); // Save to local storage if valid
+        } else {
+            this.classList.add('was-validated'); // Apply Bootstrap validation styling
+        }
+    });
+    // Function to save data to local storage
+    function saveEventDataToLocalStorage() {
+        const guestNo = parseInt(document.getElementById('guest_no').value);
+        const venueOption = document.querySelector('#venue option:checked');
+        const venuePrice = parseFloat(venueOption.dataset.price) || 0;
+        const duration = document.getElementById('event_duration').value;
+
+        const eventData = {
+            customer_name: document.getElementById('customer_name').value,
+            customer_email: document.getElementById('customer_email').value,
+            phone_no: document.getElementById('phone_no').value,
+            event_type: document.getElementById('event_type').value,
+            guest_no: guestNo,
+            start_date: document.getElementById('start_date').value,
+            end_date: document.getElementById('end_date').value,
+            event_duration: duration,
+            venue_name: venueOption.dataset.name,
+            venue_location: venueOption.dataset.location,
+            venue_price: (duration === 'Full Day' ? venuePrice * 2 : venuePrice).toFixed(2), // Updated calculation
+            catering_name: document.querySelector('#catering option:checked').dataset.name,
+            catering_price: (guestNo * parseFloat(document.querySelector('#catering option:checked').dataset.price))
+                .toFixed(2),
+            decoration_name: document.querySelector('#decoration option:checked').dataset.name,
+            decoration_price: document.querySelector('#decoration option:checked').dataset.price,
+            entertainment_name: document.querySelector('#entertainment option:checked').dataset.name,
+            entertainment_price: document.querySelector('#entertainment option:checked').dataset.price,
+            venue_id: document.getElementById('venue').value,
+            catering_id: document.getElementById('catering').value,
+            decoration_id: document.getElementById('decoration').value,
+            entertainment_id: document.getElementById('entertainment').value,
+            user_id: document.getElementById('user-id').innerText,
+            user_name: document.getElementById('user-name').innerText,
+            user_email: document.getElementById('user-email').innerText
+
+        };
+
+        localStorage.setItem('eventData', JSON.stringify(eventData));
+        alert('Are you confirm to Checkout?');
+        document.getElementById('myForm').submit(); // Submit the form after saving data to local storage
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     }
 });
 // Function to save data to local storage
@@ -228,6 +303,7 @@ function saveEventDataToLocalStorage() {
     const venuePrice = parseFloat(venueOption.dataset.price) || 0;
     const duration = document.getElementById('event_duration').value;
 
+<<<<<<< HEAD
     const eventData = {
         customer_name: document.getElementById('customer_name').value,
         customer_email: document.getElementById('customer_email').value,
@@ -345,6 +421,93 @@ function updateVenueDetailsAndPrice() {
         locationElement.style.display = 'none';
     }
 }
+=======
+    // Call this function when the form is submitted
+    document.getElementById('myForm').addEventListener('submit', function(e) {
+        saveEventDataToLocalStorage(); // Save data to local storage and then submit the form
+    });
+
+    function syncEndDate() {
+        const startDateInput = document.getElementById('start_date');
+        const endDateInput = document.getElementById('end_date');
+
+        if (startDateInput.value) {
+            // Extract the date and time separately
+            const startDateValue = startDateInput.value;
+            const [startDateOnly, startTime] = startDateValue.includes('T') ?
+                startDateValue.split('T') // For ISO 8601 format
+                :
+                startDateValue.split(' '); // For other formats
+
+            const currentEndTime = endDateInput.value ? endDateInput.value.split('T')[1] || endDateInput.value.split(' ')[
+                1] : "00:00";
+
+            // Update the End Date field with Start Date's date and current End Date's time
+            endDateInput.value = `${startDateOnly} ${currentEndTime}`;
+        }
+    }
+
+    // Add an event listener to prevent changing the date of the End Date manually
+    document.getElementById('end_date').addEventListener('input', function() {
+        const startDateInput = document.getElementById('start_date');
+        const startDateValue = startDateInput.value;
+
+        if (startDateValue) {
+            const [startDateOnly] = startDateValue.includes('T') ?
+                startDateValue.split('T') :
+                startDateValue.split(' ');
+
+            const endTime = this.value.includes('T') ? this.value.split('T')[1] : this.value.split(' ')[1] ||
+                "00:00";
+
+            this.value = `${startDateOnly} ${endTime}`;
+        }
+    });
+
+    document.getElementById('venue').addEventListener('change', function() {
+        updateVenueDetailsAndPrice();
+    });
+
+    document.getElementById('event_duration').addEventListener('change', function() {
+        updateVenueDetailsAndPrice();
+    });
+
+    function updateVenueDetailsAndPrice() {
+        const venueOption = document.querySelector('#venue option:checked');
+        const venuePrice = parseFloat(venueOption.dataset.price) || 0;
+        const duration = document.getElementById('event_duration').value;
+        const venueLocation = venueOption.dataset.location;
+        const venueImage = venueOption.dataset.image;
+
+        // Update the price based on duration
+        let finalVenuePrice = venuePrice;
+        if (duration === 'Full Day') {
+            finalVenuePrice = venuePrice * 2; // Double the price for full day
+        }
+
+        // Display venue price
+        document.getElementById('venue-price').textContent = `Price: Rs. ${finalVenuePrice.toFixed(2)}`;
+        document.getElementById('venue-price').style.display = 'block';
+
+        // Display venue image
+        const imageElement = document.getElementById('venue-image');
+        if (venueImage) {
+            imageElement.src = venueImage;
+            imageElement.style.display = 'block';
+        } else {
+            imageElement.style.display = 'none';
+        }
+
+        // Display venue location
+        const locationElement = document.getElementById('venue-location');
+        if (venueLocation) {
+            locationElement.textContent = `Location: ${venueLocation}`;
+            locationElement.style.display = 'block';
+        } else {
+            locationElement.style.display = 'none';
+        }
+    }
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 </script>
 
 

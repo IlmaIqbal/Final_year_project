@@ -14,7 +14,12 @@
                 <option value="daily" {{ request('type') === 'daily' ? 'selected' : '' }}>Daily Sales</option>
                 <option value="monthly" {{ request('type') === 'monthly' ? 'selected' : '' }}>Monthly Sales</option>
                 <option value="yearly" {{ request('type') === 'yearly' ? 'selected' : '' }}>Yearly Sales</option>
+<<<<<<< HEAD
                 <option value="category" {{ request('type') === 'category' ? 'selected' : '' }}>Category Sales</option>
+=======
+                <option value="category" {{ request('type') === 'category' ? 'selected' : '' }}>Category Sales
+                </option>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 <option value="region" {{ request('type') === 'region' ? 'selected' : '' }}>Region Sales</option>
             </select>
         </div>
@@ -36,6 +41,10 @@
                 max="{{ now()->year }}">
         </div>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
         <button type="submit" class="btn btn-primary">Generate Report</button>
     </form>
 
@@ -160,6 +169,10 @@
         if (type === 'daily') document.getElementById('dailyInput').classList.remove('d-none');
         if (type === 'monthly') document.getElementById('monthlyInput').classList.remove('d-none');
         if (type === 'yearly') document.getElementById('yearlyInput').classList.remove('d-none');
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     }
 
     // Run on page load

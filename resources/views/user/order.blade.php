@@ -135,10 +135,18 @@ p {
                                         <th>Order Number</th>
 
                                         <th>Total Price</th>
+<<<<<<< HEAD
+=======
+                                        <th>Payment</th>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                         <th>Paid At</th>
                                         <th>Delivered At</th>
                                         <th>Delivery Status</th>
                                         <th> </th>
+<<<<<<< HEAD
+=======
+                                        <th> </th>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
                                     </tr>
                                 </thead>
@@ -151,7 +159,21 @@ p {
                                         <td>{{$order->user_address}}</td>
                                         <td>{{$order->id}}</td>
                                         <td> Rs.{{$order->total_price}} </td>
+<<<<<<< HEAD
                                         <td>{{$order->created_at}}</td>
+=======
+                                        <td>
+                                            @if ($order->payment=="Pending")
+                                            <label class="badge badge-warning">{{$order->payment}}</label>
+
+                                            @else
+                                            <label class="badge badge-success">{{$order->payment}}</label>
+
+                                            @endif
+
+                                        </td>
+                                        <td>{{$order->paid_at}}</td>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                         <td>
                                             @if ($order->updated_at != $order->created_at)
                                             {{$order->updated_at}}
@@ -173,6 +195,17 @@ p {
                                             <a href="{{ route('user.order-details', ['orderId' => $order->id]) }}"
                                                 class="btn btn-primary">View</a>
                                         </td>
+<<<<<<< HEAD
+=======
+                                        <td>
+                                            @if ($order->payment_method == "BankTransfer")
+                                            <a href="{{ route('user.bank_recipe', ['orderId' => $order->id]) }}"
+                                                class="btn btn-success">Bank Recipe</a>
+
+                                            @endif
+                                        </td>
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                     </tr>
                                 </tbody>
                                 @endforeach
@@ -185,5 +218,7 @@ p {
         </div>
     </div>
 </div>
-
+<div class="d-flex justify-content-center mt-4">
+    {!! $orders->links('pagination::bootstrap-5') !!}
+</div>
 @endsection

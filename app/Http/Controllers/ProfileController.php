@@ -67,15 +67,20 @@ class ProfileController extends Controller
             return response()->json(['code' => 400, 'msg' => $validated->errors()->first()]);
         }
 
+        $profile_image = auth()->user()->profile_image; // default to old
+
         # check if the request has profile image
         if ($request->hasFile('profile_image')) {
-            $imagePath = 'storage/' . auth()->user()->profile_image;
+            $imagePath = public_path('profile_images/' . auth()->user()->profile_image);
             # check whether the image exists in the directory
             if (File::exists($imagePath)) {
                 # delete image
                 File::delete($imagePath);
             }
-            $profile_image = $request->profile_image->store('profile_images', 'public');
+            $image = $request->file('profile_image');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('profile_images'), $filename);
+            $profile_image = $filename;
         }
         # update the user info
         auth()->user()->update([
@@ -83,8 +88,7 @@ class ProfileController extends Controller
             'phone' => $request->phone,
             'address1' => $request->address1,
             'address2' => $request->address2,
-
-            'profile_image' => $profile_image ?? auth()->user()->profile_image
+            'profile_image' => $profile_image
         ]);
         return response()->json(['code' => 200, 'msg' => 'profile updated successfully.']);
     }

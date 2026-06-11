@@ -61,6 +61,24 @@ class NotificationController extends Controller
 
         return view('stockKeeper.notification', compact('notifications', 'orders'));
     }
+<<<<<<< HEAD
+=======
+    public function deliver_index()
+    {
+        $notifications =  auth()->user()->notifications;
+        // Collect all order IDs from notification data
+        $orderIds = $notifications
+            ->pluck('data')
+            ->pluck('order_id')
+            ->unique()
+            ->filter();
+
+        // Fetch all relevant orders from the database
+        $orders = Order::whereIn('id', $orderIds)->get();
+
+        return view('deliver.deliverNotify', compact('notifications', 'orders'));
+    }
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     public function supplier_index()
     {
         $notifications =  auth()->user()->notifications;
@@ -102,6 +120,17 @@ class NotificationController extends Controller
         }
         return redirect()->route('productManager.notification')->with('success', 'Notification marked as read.');
     }
+<<<<<<< HEAD
+=======
+    public function deliverRead($id)
+    {
+        $notification = auth()->user()->notifications()->findOrFail($id);
+        if ($notification) {
+            $notification->markAsRead();
+        }
+        return redirect()->route('deliver.deliverNotify')->with('success', 'Notification marked as read.');
+    }
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     public function stockKeeperRead($id)
     {
         $notification = auth()->user()->notifications()->findOrFail($id);

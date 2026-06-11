@@ -84,6 +84,11 @@ All Orders
                                 <th>Phone</th>
 
                                 <th>Total Price</th>
+<<<<<<< HEAD
+=======
+                                <th>Order Status</th>
+                                <th>Payment Method</th>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                 <th>Payment</th>
                                 <th>Delivery</th>
                                 <th>Issue Status</th>
@@ -92,7 +97,11 @@ All Orders
                                 <th>Delivered At</th>
                                 <th>Issued At</th>
                                 <th>Paid By</th>
+<<<<<<< HEAD
                                 <th>Delivered</th>
+=======
+                                <th>Confirmation</th>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                 <th></th>
                             </tr>
                         </thead>
@@ -108,6 +117,7 @@ All Orders
                                 <td>{{$order->phone}}</td>
                                 <td>{{$order->total_price}}</td>
                                 <td>
+<<<<<<< HEAD
                                     @if ($order->payment=="Pending")
                                     <label class="badge badge-warning">{{$order->payment}}</label>
                                     @else
@@ -121,6 +131,83 @@ All Orders
                                     <label class="badge" style="background-color: #8B4513;">{{$order->delivery}}</label>
 
                                     @elseif ($order->delivery=="Confirmed")
+                                    <label class="badge" style="background-color: #013273;">{{$order->delivery}}</label>
+
+                                    @else
+                                    <label class="badge "
+                                        style="background-color: #063d01;">{{$order->delivery}}</label>
+
+                                    @endif
+
+
+                                </td>
+                                <td>
+                                    @if ($order->issue_status=="Ongoing")
+                                    <label class="badge"
+                                        style="background-color: #FFA500;">{{$order->issue_status}}</label>
+                                    @else
+                                    <label class="badge badge-success">{{$order->issue_status}}</label>
+=======
+                                    @if ($order->order_status=="Pending")
+                                    <label class="badge badge-warning">{{$order->order_status}}</label>
+                                    @else
+                                    <label class="badge badge-success">{{$order->order_status}}</label>
+
+                                    @endif
+                                </td>
+                                <td>{{$order->payment_method}}</td>
+                                <td>
+                                    @if ($order->payment=="Pending")
+                                    <label class="badge badge-warning">{{$order->payment}}</label>
+                                    @else
+                                    <label class="badge badge-success">{{$order->payment}}</label>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
+
+                                    @endif
+
+                                </td>
+<<<<<<< HEAD
+                                <td>{{$order->paid_at}}</td>
+                                <td>
+                                    {{$order->confirmed_at}}
+                                </td>
+                                <td>
+                                    {{$order->delivered_at}}
+                                </td>
+                                <td>
+                                    {{$order->issued_at}}
+                                </td>
+                                <td>
+                                    {{$order->paidBy->name ?? '_'}}
+                                </td>
+
+                                <td>
+                                    <form action="{{route('update_order_status', ['order' => $order->id])}}"
+                                        method="post">
+                                        @csrf
+                                        @method('PUT')
+
+                                        @if($order->delivery=="Processing")
+
+                                        <button class="btn btn-success" type="submit" name="action" value="Confirmed"
+                                            onclick="return confirm('Are you sure this product is available on the stack?')">Confirm</button>
+
+                                        @elseif ($order->delivery=="Confirmed")
+
+                                        <button class="btn btn-primary" type="submit" name="action" value="Delivered"
+                                            onclick="return confirm('Are you sure this product is delivered?')">Deliver</button>
+
+
+                                        @else
+
+                                        <p>Delivered</p>
+
+=======
+                                <td>
+                                    @if ($order->delivery=="Processing")
+                                    <label class="badge" style="background-color: #8B4513;">{{$order->delivery}}</label>
+
+                                    @elseif ($order->delivery=="outForDelivery")
                                     <label class="badge" style="background-color: #013273;">{{$order->delivery}}</label>
 
                                     @else
@@ -161,21 +248,14 @@ All Orders
                                         @csrf
                                         @method('PUT')
 
-                                        @if($order->delivery=="Processing")
+                                        @if($order->order_status=="Pending")
 
                                         <button class="btn btn-success" type="submit" name="action" value="Confirmed"
                                             onclick="return confirm('Are you sure this product is available on the stack?')">Confirm</button>
 
-                                        @elseif ($order->delivery=="Confirmed")
-
-                                        <button class="btn btn-primary" type="submit" name="action" value="Delivered"
-                                            onclick="return confirm('Are you sure this product is delivered?')">Deliver</button>
-
-
-                                        @else
-
-                                        <p>Delivered</p>
-
+                                        @elseif ($order->order_status=="Confirmed")
+                                        <span>Confirmed</span>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                         @endif
                                     </form>
 

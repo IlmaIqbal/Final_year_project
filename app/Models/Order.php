@@ -26,12 +26,20 @@ class Order extends Model
         'payment_method',
         'paid_at',
         'paid_by',
+<<<<<<< HEAD
+=======
+        'vehicle_no',
+        'estimate_date',
+        'deliver_by',
+        'image'
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     ];
 
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class, 'order_id');
     }
+<<<<<<< HEAD
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -39,5 +47,14 @@ class Order extends Model
     public function giftItems()
     {
         return $this->hasMany(Gift_order_items::class, 'order_id');
+=======
+    public function paidBy()
+    {
+        return $this->belongsTo(User::class, 'paid_by');
+    }
+    public function deliverBy()
+    {
+        return $this->belongsTo(User::class, 'deliver_by');
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     }
 }

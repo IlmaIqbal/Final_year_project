@@ -21,6 +21,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.1/css/boxicons.min.css">
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
@@ -195,11 +199,31 @@
                     <i class="fa-solid fa-boxes-stacked"></i> Reorders
                 </a>
             </li>
+<<<<<<< HEAD
             <li class="sidebar-item">
                 <a href="{{route('report.saleReport')}}">
                     <!-- mainly date and time for order history -->
                     <i class="fa-solid fa-clipboard"></i> Reports
                 </a>
+=======
+
+            <li class="sidebar-item">
+                <a class="sidebar-link collapsed" data-bs-toggle="collapse" href="#report" role="button"
+                    aria-expanded="false" aria-controls="report">
+                    <!-- Stock management -->
+                    <i class="fa-solid fa-clipboard"></i> Reports
+                </a>
+                <ul class="collapse list-unstyled" id="report">
+                    <li class="sidebar-item">
+                        <a href="{{route('report.saleReport')}}">Sale Report</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{{route('report.inventoryReport.inventoryReport')}}">Inventory
+                            Report</a>
+                    </li>
+                </ul>
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
             </li>
 
             <li class="sidebar-item">

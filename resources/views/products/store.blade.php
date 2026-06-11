@@ -14,7 +14,11 @@ Add Products
         </div>
     </div>
 
+<<<<<<< HEAD:resources/views/products/store.blade.php
     <form method="POST" action="{{ route('products.store')}}" enctype="multipart/form-data">
+=======
+    <form method="POST" action="{{ route('product.store')}}" enctype="multipart/form-data">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76:resources/views/products/gift_store.blade.php
         @csrf
         <div class="card-body">
             <div class="form-group">

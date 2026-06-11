@@ -190,4 +190,15 @@ class PaymentController extends Controller
 
         return view('cashier.invoice', compact('order', 'orderItems'));
     }
+<<<<<<< HEAD
+=======
+
+    public function handleReturn(Request $request)
+    {
+        $orderId = $request->query('order_id'); // or $request->order_id
+
+        // Example: process the order ID
+        return "Returned order ID: " . $orderId;
+    }
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 }

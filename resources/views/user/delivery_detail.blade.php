@@ -1,6 +1,17 @@
 @extends('nav')
 
 @section('content')
+<<<<<<< HEAD
+=======
+
+<?php
+
+use Illuminate\Support\Facades\Auth;
+
+$user = Auth::user();
+
+?>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -10,24 +21,43 @@
                 @csrf
                 <div class="form-group mb-3">
                     <label for="delivery_name">Customer Name</label>
+<<<<<<< HEAD
                     <input type="text" class="form-control" id="delivery_name" name="delivery_name" required>
                 </div>
                 <div class="form-group mb-3">
                     <label for="delivery_address1">Address</label>
                     <input type="text" class="form-control" id="delivery_address1" name="delivery_address1" required>
+=======
+                    <input type="text" class="form-control" id="delivery_name" name="delivery_name"
+                        value="{{ old('name', $user->name ?? '')}}" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="delivery_address1">Address</label>
+                    <input type="text" class="form-control" id="delivery_address1" name="delivery_address1"
+                        value="{{ old('address1', $user->address1 ?? '')}}" required>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="delivery_address2">City</label>
+<<<<<<< HEAD
                     <input type="text" class="form-control" id="delivery_address2" name="delivery_address2">
+=======
+                    <input type="text" class="form-control" id="delivery_address2" name="delivery_address2"
+                        value="{{ old('address2', $user->address2 ?? '')}}">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 </div>
 
                 <div class="form-group mb-3">
                     <label for="delivery_address3">District</label>
                     <select type="text" class="form-control" id="delivery_address3" name="delivery_address3" required
                         autocomplete="delivery_address3" data-bs-toggle="dropdown" aria-expanded="false">
+<<<<<<< HEAD
                         <option selected>Choose...</option>
                         <option value="Colombo">Colombo</option>
+=======
+                        <option selected value="Colombo">Colombo</option>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                         <option value="Gampaha">Gampaha</option>
                         <option value="Kalutara">Kalutara</option>
                         <option value="Kandy">Kandy</option>
@@ -58,12 +88,21 @@
                 <div class="form-group mb-3">
                     <label for="delivery_email">Email</label>
                     <input type="email" class="form-control" id="delivery_email" autocomplete="email"
+<<<<<<< HEAD
                         name="delivery_email" required>
+=======
+                        name="delivery_email" value="{{ old('email', $user->email ?? '')}}" required>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 </div>
 
                 <div class="form-group mb-4">
                     <label for="delivery_phone">Phone Number</label>
+<<<<<<< HEAD
                     <input type="text" class="form-control" id="delivery_phone" name="delivery_phone" required>
+=======
+                    <input type="text" class="form-control" id="delivery_phone" name="delivery_phone"
+                        value="{{ old('phone', $user->phone ?? '')}}" required>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 </div>
                 <div class="form-check mb-4">
                     <input class="form-check-input" type="checkbox" id="sameAsDelivery">
@@ -184,13 +223,18 @@
                         <small class="text-muted">Total Amount</small>
                         <p id="total">Rs.0.00</p>
                     </div>
+<<<<<<< HEAD
                     <button id="continueToPay" type="button" class="btn btn-primary w-100">Continue to Payment</button>
+=======
+                    <button id="continueToPay" type="submit" class="btn btn-primary w-100">Continue to Payment</button>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", function() {
     const tableBody = document.querySelector(".table-borderless tbody");
     const totalElement = document.getElementById("total");
@@ -208,6 +252,25 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td>
                         <div class="d-flex align-items-center">
                             <div><img class="pic" src="${item.image}" alt="${item.name}" style="width: 75px; height: 75px; object-fit: cover;"></div>
+=======
+    document.addEventListener("DOMContentLoaded", function() {
+        const tableBody = document.querySelector(".table-borderless tbody");
+        const totalElement = document.getElementById("total");
+
+        let cartData = JSON.parse(localStorage.getItem("cart")) || [];
+        let total_price = 0;
+
+        tableBody.innerHTML = "";
+
+        cartData.forEach(item => {
+            total_price += item.price * item.quantity;
+
+            let row = `
+                <tr class="border-bottom">
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div><img class="pic" src="{{ asset('') }}${item.image}" alt="${item.name}" style="width: 75px; height: 75px; object-fit: cover;"></div>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                             <div class="ps-4 d-flex flex-column justify-content">
                                 <p class="fw-bold">${item.name}</p>
                             </div>
@@ -216,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td><span class="pe-3">Qty ${item.quantity}</span></td>
                     <td><span class="pe-3"> Rs.${(item.price * item.quantity).toFixed(2)}</span></td>
                 </tr>`;
+<<<<<<< HEAD
         tableBody.insertAdjacentHTML("beforeend", row);
     });
 
@@ -361,5 +425,151 @@ document.getElementById("sameAsDelivery").addEventListener("change", function() 
         document.getElementById("billing_phone").value = "";
     }
 });
+=======
+            tableBody.insertAdjacentHTML("beforeend", row);
+        });
+
+        totalElement.innerText = `Rs.${total_price.toFixed(2)}`;
+    });
+
+    document.getElementById("continueToPay").addEventListener("click", function(e) {
+        e.preventDefault();
+
+        const deliveryData = {
+            name: document.getElementById("delivery_name").value,
+            address1: document.getElementById("delivery_address1").value,
+            address2: document.getElementById("delivery_address2").value,
+            address3: document.getElementById("delivery_address3").value,
+            email: document.getElementById("delivery_email").value,
+            phone: document.getElementById("delivery_phone").value
+        };
+
+        const billingData = {
+            name: document.getElementById("billing_name").value,
+            address1: document.getElementById("billing_address1").value,
+            address2: document.getElementById("billing_address2").value,
+            address3: document.getElementById("billing_address3").value,
+            email: document.getElementById("billing_email").value,
+            phone: document.getElementById("billing_phone").value,
+        };
+
+        const selectPaymentMethod = document.querySelector('input[name="payment"]:checked');
+        const paymentMethod = selectPaymentMethod ? selectPaymentMethod.value : null;
+
+        if (!deliveryData.name || !deliveryData.email || !deliveryData.phone) {
+            alert("Please fill all delivery details.");
+            return;
+        }
+        if (!billingData.name || !billingData.email || !billingData.phone) {
+            alert("Please fill all billing details.");
+            return;
+        }
+
+        if (!paymentMethod) {
+            alert("Please select a payment method.");
+            return;
+        }
+
+        // Save to localStorage
+        localStorage.setItem("deliveryInfo", JSON.stringify(deliveryData));
+        localStorage.setItem("billingInfo", JSON.stringify(billingData));
+        localStorage.setItem("paymentMethod", paymentMethod);
+
+        const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+        if (cartData.length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+
+        const totalPrice = cartData.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        // Build the request payload as you want:
+        let payload = {
+            user_id: "{{ auth()->user()->id }}",
+            user_name: deliveryData.name,
+            user_email: deliveryData.email,
+            user_address: [
+                deliveryData.address1,
+                deliveryData.address2,
+                deliveryData.address3
+            ].filter(Boolean).join(', ') + '.',
+            phone: deliveryData.phone,
+            items: cartData.map(item => ({
+                id: item.id,
+                type: item.type || "default",
+                name: item.name,
+                detail: item.detail || "",
+                image: item.image,
+                price: item.price,
+                quantity: item.quantity
+            })),
+            total_price: totalPrice,
+            billing_name: billingData.name,
+            billing_email: billingData.email,
+            billing_address: [
+                billingData.address1,
+                billingData.address2,
+                billingData.address3
+            ].filter(Boolean).join(', ') + '.',
+            billing_phone: billingData.phone,
+            payment_method: paymentMethod
+        };
+
+        if (paymentMethod === "CashOnDelivery" || paymentMethod === "BankTransfer") {
+            // Place order immediately and redirect to invoice
+            fetch("{{route('store_order')}}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    },
+                    body: JSON.stringify(payload)
+
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Order placed successfully!");
+                        localStorage.removeItem("cart");
+                        localStorage.removeItem("deliveryInfo");
+                        localStorage.removeItem("billingInfo");
+                        localStorage.removeItem("paymentMethod");
+                        window.location.href =
+                            `/Final_year_project/public/order/${data.order_id}`; // redirect to invoice page
+                    } else {
+                        alert("Failed to place order. Try again.");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Server error. Please try again later.");
+                });
+
+        } else if (paymentMethod === "OnlinePayment") {
+            // Redirect to online payment page for further processing
+            window.location.href = "{{route('user.payment')}}";
+        }
+    });
+    document.getElementById("sameAsDelivery").addEventListener("change", function() {
+        if (this.checked) {
+            // Copy delivery values into billing fields
+            document.getElementById("billing_name").value = document.getElementById("delivery_name").value;
+            document.getElementById("billing_address1").value = document.getElementById("delivery_address1").value;
+            document.getElementById("billing_address2").value = document.getElementById("delivery_address2").value;
+            document.getElementById("billing_address3").value = document.getElementById("delivery_address3").value;
+            document.getElementById("billing_email").value = document.getElementById("delivery_email").value;
+            document.getElementById("billing_phone").value = document.getElementById("delivery_phone").value;
+        } else {
+            // Clear billing fields if checkbox is unchecked
+            document.getElementById("billing_name").value = "";
+            document.getElementById("billing_address1").value = "";
+            document.getElementById("billing_address2").value = "";
+            document.getElementById("billing_address3").value = "";
+            document.getElementById("billing_email").value = "";
+            document.getElementById("billing_phone").value = "";
+        }
+    });
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 </script>
 @endsection

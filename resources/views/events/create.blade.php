@@ -110,8 +110,13 @@ Events
                     <option value="">Select a venue</option>
                     @foreach ($venues as $venue)
                     <option value="{{ $venue->id }}" data-name="{{ $venue->name }}"
+<<<<<<< HEAD
                         data-image="{{ asset('storage/images/venue/' . $venue->image) }}"
                         data-location="{{ $venue->location }}" data-price="{{ $venue->price }}" required>
+=======
+                        data-image="{{ asset('images/venue/' . $venue->image) }}" data-location="{{ $venue->location }}"
+                        data-price="{{ $venue->price }}" required>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                         {{ $venue->name }}
                     </option>
                     @endforeach

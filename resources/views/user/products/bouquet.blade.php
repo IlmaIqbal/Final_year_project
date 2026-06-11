@@ -16,7 +16,11 @@
                 <div class="col-md-4 mb-3">
 
                     <div class="card">
+<<<<<<< HEAD
                         <img class="img-fluid" alt="100%x280" src="/image/{{ $bouquet->product->image }}">
+=======
+                        <img class="img-fluid" alt="100%x280" src="{{ asset('image/' .$bouquet->product->image) }}">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                         <div class="card-body">
                             <h4 class="card-title">{{ $bouquet->product->name }}</h4>
                             <p class="card-text">{{ $bouquet->product->detail }}</p>

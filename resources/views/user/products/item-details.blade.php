@@ -24,6 +24,7 @@
 
 <div class="container mt-5">
     <div class="row">
+<<<<<<< HEAD
 
         @foreach ($id as $value)
         @php
@@ -33,6 +34,17 @@
         <div class="col-md-5 mb-4">
             <img src="/image/{{$value->product->image}}" alt="Product" class="img-fluid rounded mb-2 product-image"
                 id="mainImage">
+=======
+        @foreach ($id as $value)
+
+        @php
+        $availableQty = ($value->qty - $value->issue_qty)
+        @endphp
+        <!-- Product Images -->
+        <div class="col-md-5 mb-4">
+            <img src="{{ asset('image/' .$value->product->image)}}" alt="Product"
+                class="img-fluid rounded mb-2 product-image" id="mainImage">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
             <!-- <div class="d-flex justify-content-between">
                 <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080"
                     alt="Thumbnail 1" class="thumbnail rounded active" onclick="changeImage(event, this.src)">
@@ -47,6 +59,10 @@
 
         <!-- Product Details -->
         <div class="col-md-6">
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
             <h2 class="mb-3">{{$value->product->name}}</h2>
             <p class="text-muted mb-4">SKU: WH1000XM4</p>
             <div class="mb-3">
@@ -62,6 +78,7 @@
                 <span class="ms-2">4.5 (120 reviews)</span>
             </div> -->
             <p class="mb-4">{{$value->product->detail}}</p>
+<<<<<<< HEAD
             <div class="mb-4">
                 <h5>Color:</h5>
                 <div class="btn-group" role="group" aria-label="Color selection">
@@ -80,6 +97,19 @@
                 <input type="number" class="form-control" id="quantity" value="1" min="1" style="width: 80px;"
                     data-stock="{{ $availableStock }}" oninput="checkStock(this)">
             </div>
+=======
+            <span class="text-danger" id="qty" style="width: 150px; height: 40px;"> Only {{$availableQty}}
+                quantity have</span>
+
+
+            <div class="mb-4">
+                <label for="quantity" class="form-label">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" value="1" min="{{$availableQty}}"
+                    style="width: 80px;">
+
+            </div>
+            @endforeach
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
             @if ($value->qty >$value->issue_qty)
             <button class="btn btn-primary btn-lg mb-3 me-2 add-to-cart" data-id="{{ $value->id }}"
                 data-name="{{ $value->product->name }}" data-detail="{{ $value->product->detail }}"
@@ -142,7 +172,13 @@
                 const image = button.dataset.image;
 
                 const quantityInput = document.getElementById('quantity');
+<<<<<<< HEAD
                 const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+=======
+                const qty = document.getElementById('qty');
+                const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+                const qty1 = qty ? parseInt(quantityInput.value) : 1;
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
                 const Item = {
                     id: id,
@@ -165,6 +201,7 @@
                     // Add new item to the cart
                     cart.push(Item);
                 }
+<<<<<<< HEAD
 
 
                 // Save updated cart back to local storage
@@ -184,6 +221,23 @@
             input.value = availableQty;
         }
     }
+=======
+                const qty2 = document.getElementById('qty');
+                const quantity1 = quantityInput ? parseInt(quantityInput.value) : 1;
+
+                if (qty2 > quantity1) {
+
+                    localStorage.setItem('cart', JSON.stringify(cart));
+
+                    alert('Added to cart');
+                }
+
+                // Save updated cart back to local storage
+
+            });
+        });
+    });
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 </script>
 
 

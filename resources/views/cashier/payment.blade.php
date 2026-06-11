@@ -99,6 +99,10 @@ Completed Payment Orders
                                 <th>Total Price</th>
                                 <th>Payment</th>
                                 <th>Delivery</th>
+<<<<<<< HEAD
+=======
+                                <th> Bank Recipe</th>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                 <th>Issue Status</th>
                                 <th>Paid At</th>
                                 <th>Confirmed At</th>
@@ -145,6 +149,14 @@ Completed Payment Orders
 
                                 </td>
                                 <td>
+<<<<<<< HEAD
+=======
+                                    @if ($order->payment_method=="BankTransfer")
+                                    <img src="{{ asset('image/'. $order->image ) }}" width="100px">
+                                    @endif
+                                </td>
+                                <td>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                     @if ($order->issue_status=="Ongoing")
                                     <label class="badge"
                                         style="background-color: #FFA500;">{{$order->issue_status}}</label>

@@ -51,7 +51,10 @@ class SupplierReorderNotification extends Notification
             ->line('Requested Quantity: ' . $this->reorder->requested_qty)
             ->line('Selling Price: Rs.' . $inventory->sell_price)
             ->line('Reorder Date: ' . ($inventory->r_date ?? now()->toDateString()))
+<<<<<<< HEAD
             ->action('View Reorder', url('/supplier/reorders/' . $this->reorder->id))
+=======
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
             ->line('Please log in and process the request promptly.');
     }
 
@@ -83,4 +86,8 @@ class SupplierReorderNotification extends Notification
             'url' => url('/supplier/reorders/' . $this->reorder->id),
         ];
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76

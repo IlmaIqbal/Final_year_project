@@ -9,6 +9,7 @@
 }
 </style>
 
+
 <section class="h-100 h-custom">
     <div class="container h-100 py-5">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -23,6 +24,10 @@
                             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
                                 aria-label="Close"></button>
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -37,6 +42,10 @@
                             </tr>
                         </thead>
                         <tbody id="cart-items">
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                             <!-- Cart items will be dynamically inserted here -->
                         </tbody>
                     </table>
@@ -62,6 +71,7 @@
     </div>
 </section>
 <script>
+<<<<<<< HEAD
 document.getElementById('checkoutBtn').addEventListener('click', function() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -115,6 +125,61 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>Rs.${item.price} per item</td>
                         <td>
                             <input type="number" class="form-control quantity-input" min="1" value="${item.quantity}" data-stock="${item.stock}" data-index="${index}"  oninput="checkStock(this)" style="width: 80px;">
+=======
+    document.getElementById('checkoutBtn').addEventListener('click', function() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        if (cart.length === 0) {
+            alert("Your cart is empty!");
+        } else {
+            // Proceed to checkout page
+            window.location.href = "{{ route('user.delivery_detail') }}";
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const totalElement = document.getElementById('total');
+        const cartCountBadge = document.querySelector('.cart-count-badge'); // Cart badge
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let totalPrice = 0;
+
+
+        // Function to get unique cart item count
+        const getCartItemCount = () => {
+            return cart.length; // Number of unique items
+        };
+
+
+        // Function to update cart count badge
+        const updateCartCount = () => {
+            let itemCount = getCartItemCount();
+            if (cartCountBadge) {
+                if (itemCount > 0) {
+                    cartCountBadge.textContent = itemCount;
+                    cartCountBadge.style.display = 'inline-block';
+                } else {
+                    cartCountBadge.style.display = 'none';
+                }
+            }
+        };
+
+        // Function to render cart items
+        const renderCart = () => {
+            cartItemsContainer.innerHTML = '';
+            totalPrice = 0;
+
+            cart.forEach((item, index) => {
+                const row = `
+                    <tr>
+                        <td><img class="img_deg" src="{{ asset('') }}${item.image}" alt="${item.name}"></td>
+                        <td>${item.name}</td>
+                        <td>Rs.${item.price} per item</td>
+                        <td>
+                            <input type="number" class="form-control quantity-input" min="1" value="${item.quantity}" data-index="${index}" style="width: 80px;">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                         </td>
                         <td>Rs.${(item.price * item.quantity).toFixed(2)}</td>
                         <td>
@@ -124,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </td>
                     </tr>
                 `;
+<<<<<<< HEAD
             cartItemsContainer.innerHTML += row;
             totalPrice += item.price * item.quantity;
         });
@@ -168,6 +234,48 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial render
     renderCart();
 });
+=======
+                cartItemsContainer.innerHTML += row;
+                totalPrice += item.price * item.quantity;
+            });
+
+            totalElement.textContent = `Rs.${totalPrice.toFixed(2)}`;
+            updateCartCount(); // Update cart count after rendering
+        };
+
+        // Function to remove an item
+        window.removeCartItem = (index) => {
+            if (confirm('Are you sure you want to remove this item?')) {
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+
+                const toast = new bootstrap.Toast(document.getElementById("toastSuccess"));
+                toast.show();
+            }
+        };
+
+        // Event listener for quantity change
+        cartItemsContainer.addEventListener('input', (e) => {
+            if (e.target.classList.contains('quantity-input')) {
+                const index = e.target.dataset.index;
+                const newQuantity = parseInt(e.target.value);
+
+                if (newQuantity > 0) {
+                    cart[index].quantity = newQuantity;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                } else {
+                    alert('Quantity must be at least 1.');
+                    e.target.value = cart[index].quantity;
+                }
+            }
+        });
+
+        // Initial render
+        renderCart();
+    });
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 </script>
 
 @endsection

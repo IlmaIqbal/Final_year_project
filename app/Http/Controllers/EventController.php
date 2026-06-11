@@ -24,6 +24,13 @@ class EventController extends Controller
         return view('events.index', compact('events'));
     }
 
+    public function customer_event()
+    {
+        $id = Auth::user()->id;
+
+        $events = Booking::where('user_id', '=', $id)->orderBy('created_at', 'desc')->paginate(10);
+        return view('user.event', compact('events'));
+    }
     /**
      * Show the form for creating a new resource.
      */

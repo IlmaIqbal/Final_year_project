@@ -8,7 +8,8 @@
                 <div class="card" style="border-radius: 1rem;">
                     <div class="row g-0">
                         <div class="col-md-6 col-lg-5 d-none d-md-block">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                            <img src="{{asset('image/img1.jpg')}}" alt="login form" class="img-fluid"
+                                style="border-radius: 1rem 0 0 1rem;" />
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 text-black">
@@ -19,12 +20,16 @@
                                         <span class="h1 fw-bold mb-0">Logo</span>
                                     </div>
 
-                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account
+                                    </h5>
 
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="email">{{ __('Email address') }}</label>
-                                        <input type="email" id="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
+                                        <input type="email" id="email"
+                                            class="form-control form-control-lg @error('email') is-invalid @enderror"
+                                            name="email" value="{{ old('email') }}" required autocomplete="email"
+                                            autofocus />
 
 
                                         @error('email')
@@ -38,7 +43,9 @@
                                     <!-- password input -->
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="password">{{ __('Password') }}</label>
-                                        <input type="password" id="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" />
+                                        <input type="password" id="password"
+                                            class="form-control form-control-lg @error('password') is-invalid @enderror"
+                                            name="password" required autocomplete="current-password" />
 
 
 
@@ -83,7 +90,8 @@
 
                                     <br />
 
-                                    <p class="mb-5 pb-lg-2">Don't have an account? <a href="{{ route('register') }}" style="color: #393f81;">{{ __('Register here') }}</a></p>
+                                    <p class="mb-5 pb-lg-2">Don't have an account? <a href="{{ route('register') }}"
+                                            style="color: #393f81;">{{ __('Register here') }}</a></p>
                                 </form>
                             </div>
                         </div>

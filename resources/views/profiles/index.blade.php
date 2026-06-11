@@ -63,11 +63,17 @@
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                         @php($profile_image = auth()->user()->profile_image)
                         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+<<<<<<< HEAD
                             <img class="rounded-circle mt-5" width="150px" src="@if($profile_image == null)
                              {{ asset("storage/profile_images/no-pic.png") }}  
                               @else 
                               {{ asset("storage/$profile_image") }} 
                               @endif" id="image_preview_container">
+=======
+                            <img class="rounded-circle mt-5" width="150px"
+                                src="{{ $profile_image ? asset('profile_images/' . $profile_image) : asset('profile_images/no-pic.png') }}"
+                                id="image_preview_container">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
                         </div>
 

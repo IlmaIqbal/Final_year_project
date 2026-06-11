@@ -39,7 +39,11 @@
 
                                 <div class="row">
                                     <div class="col-md-2">
+<<<<<<< HEAD
                                         <img src="{{ asset($item['image']) }}" class="img-fluid"
+=======
+                                        <img src="{{ asset('') }}{{ $item['image'] }}" class="img-fluid"
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                             alt="{{ $item['name'] }}">
                                     </div>
                                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
@@ -57,7 +61,24 @@
                                     </div>
                                 </div>
                                 @endforeach
+<<<<<<< HEAD
 
+=======
+                                @php
+
+                                $deliveryStatus = $order->delivery ?? 'Pending';
+
+                                $process = match($deliveryStatus){
+                                'Pending' => 25,
+                                'outForDelivery' => 65,
+                                'Delivered' => 100,
+                                default => 0,
+
+                                }
+
+
+                                @endphp
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                 <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
                                 <div class="row d-flex align-items-center">
                                     <div class="col-md-2">
@@ -66,12 +87,30 @@
                                     <div class="col-md-10">
                                         <div class="progress" style="height: 6px; border-radius: 16px;">
                                             <div class="progress-bar" role="progressbar"
+<<<<<<< HEAD
                                                 style="width: 65%; border-radius: 16px; background-color: #a8729a;"
                                                 aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                         <div class="d-flex justify-content-around mb-1">
                                             <p class="text-muted mt-1 mb-0 small ms-xl-5">Out for delivary</p>
                                             <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
+=======
+                                                style="width: {{ $process }}%; border-radius: 16px; background-color: #a8729a;"
+                                                aria-valuenow="$process" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                        <div class="d-flex justify-content-around mb-1">
+
+                                            <p
+                                                class="text-muted mt-1 mb-0 small {{ $process >= 25 ? 'text-success' : '' }}">
+                                                Pending</p>
+
+                                            <p
+                                                class="text-muted mt-1 mb-0 small {{ $process >= 65 ? 'text-success' : '' }}">
+                                                Out for Delivery</p>
+                                            <p
+                                                class="text-muted mt-1 mb-0 small {{ $process == 100 ? 'text-success' : '' }}">
+                                                Delivered</p>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                         </div>
                                     </div>
                                 </div>
@@ -91,18 +130,51 @@
                         <div class="d-flex justify-content-between">
                             <p class="text-muted mb-0">Order Date : {{ $order->created_at}}</p>
                         </div>
+<<<<<<< HEAD
 
+=======
+                        <div class="d-flex justify-content-between pt-2">
+                            <p class="fw-bold mb-0">Deliver Details</p>
+                        </div>
+                        <div class="d-flex justify-content-between pt-2">
+                            <p class="text-muted mb-0">Deliver Name : {{ $order->deliverBy->name ?? '' }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between ">
+                            <p class="text-muted mb-0">Vehicle Number : {{ $order->vehicle_no }}</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <p class="text-muted mb-0">Estimate Date : {{ $order->estimate_date}}</p>
+                        </div>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
                     </div>
                     <div class="card-footer border-0 px-4 py-5"
                         style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
                         <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
                             paid: <span class="h4 mb-0 ms-2">Rs. {{ $order->total_price }}</span></h5>
+<<<<<<< HEAD
                     </div>
                 </div>
             </div>
         </div>
     </div>
+=======
+
+                        <a href="{{route('user.order')}}" class="btn btn-secondary">Go Back</a>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        // after button clicked wants to disappear
+    </script>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 </section>
 
 @endsection

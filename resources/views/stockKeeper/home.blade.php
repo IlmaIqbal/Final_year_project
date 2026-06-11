@@ -17,9 +17,12 @@
                     {{ __('You are logged in as Stock Keeper!') }}
                     <br>
 
+<<<<<<< HEAD
                     @foreach(auth()->user()->notifications as $notification)
                     <p>{{ $notification->data['message'] ?? 'You have a new reorder request.' }}</p>
                     @endforeach
+=======
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 </div>
             </div>
         </div>

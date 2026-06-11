@@ -23,7 +23,11 @@ products
             <div class="card-header">
                 <h3 class="card-title">product Table</h3>
                 <div class="card-tools">
+<<<<<<< HEAD:resources/views/products/index.blade.php
                     <a href="{{ route('products.create')}}" class="btn btn-primary">Create product</a>
+=======
+                    <a href="{{ route('products.store')}}" class="btn btn-primary">Create product</a>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76:resources/views/products/gift.blade.php
                 </div>
             </div>
             @if ($message = Session::get('success'))
@@ -51,7 +55,11 @@ products
                     <tbody>
                         @foreach ($products as $product )
                         <tr>
+<<<<<<< HEAD:resources/views/products/index.blade.php
                             <td><img src="/image/{{ $product->image }}" width="100px"></td>
+=======
+                            <td><img src="{{ asset('image/'. $product->image ) }}" width="100px"></td>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76:resources/views/products/gift.blade.php
                             <td>{{ $product->product_type}}</td>
                             <td>{{ $product->name}}</td>
                             <td>

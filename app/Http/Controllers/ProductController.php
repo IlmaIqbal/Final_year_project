@@ -21,6 +21,11 @@ class ProductController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     // customer interface
     public function customer_gift()
     {

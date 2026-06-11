@@ -2,13 +2,24 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\Order;
 use App\Models\OrderItem;
+=======
+use App\Models\Inventory;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 class ReportController extends Controller
 {
     public function saleReport(Request $request)
@@ -88,6 +99,7 @@ class ReportController extends Controller
 
     private function generateReportData(Request $request)
     {
+<<<<<<< HEAD
         $type = $request->input('type', 'daily');
         $orders = Order::query();
 
@@ -103,6 +115,39 @@ class ReportController extends Controller
         $orders = $orders->get();
 
         $selectedType = $request->input('category'); // optional category filter
+=======
+        // Get the report type from request (daily, monthly, yearly). Default is 'daily'.
+        $type = $request->input('type', 'daily');
+
+        // Start building a query to get orders
+        $orders = Order::query();
+
+
+        // Filter order base on type and date input
+        if ($type === 'daily' && $request->filled('date')) {
+            // Filter by date
+            $orders->whereDate('created_at', $request->date);
+
+            // Filter Order base on type and month Input 
+        } elseif ($type === 'monthly' && $request->filled('month')) {
+            // Parse month and year from input
+            $date = Carbon::parse($request->month);
+            // separating month and year
+            $orders->whereMonth('created_at', $date->month)->whereYear('created_at', $date->year);
+
+            // Filter Order base on type and year Input 
+        } elseif ($type === 'yearly' && $request->filled('year')) {
+            // get the year using created_at column
+            $orders->whereYear('created_at', $request->year);
+        }
+
+        // Get all filtered orders from database
+        $orders = $orders->get();
+
+        // Get optional category filter (like gift, bouquet, etc.)
+        $selectedType = $request->input('category'); // optional category filter
+        // This will store the final report data
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
         $reportData = collect();
 
         foreach ($orders as $order) {
@@ -154,4 +199,106 @@ class ReportController extends Controller
         $pdf = Pdf::loadView('report.downloadSaleReport', compact('reportData', 'type'));
         return $pdf->download('Sales_Report.pdf');
     }
+<<<<<<< HEAD
+=======
+
+    public function inventoryReport()
+    {
+        $stocks = Inventory::select('product_id')
+            ->selectRaw('SUM(qty) as total_qty')
+            ->selectRaw('SUM(issue_qty) as total_issued')
+            ->groupBy('product_id')
+            ->whereHas('product')
+            ->with('product')
+            ->get();
+
+
+        return [$stocks];
+    }
+
+    public function redirectToReport(Request $request)
+    {
+        $type = $request->input('type');
+
+        if ($type === 'stockLevel') {
+            return redirect()->route('report.inventoryReport.stockLevel');
+        } elseif ($type === 'topSellProduct') {
+            return redirect()->route('report.inventoryReport.topSellProduct');
+        } elseif ($type === 'reorder') {
+            return redirect()->route('report.inventoryReport.reorderReport');
+        } else {
+            return back()->with('error', 'Please Select report!');
+        }
+    }
+
+    public function stockLevel(Request $request)
+    {
+
+        [$stocks] = $this->inventoryReport($request);
+
+        return view('report.inventoryReport.stockLevel', compact('stocks'));
+    }
+
+    public function downloadInventoryReport(Request $request)
+    {
+
+        [$stocks] = $this->inventoryReport($request);
+
+        $pdf = Pdf::loadView('report.inventoryReport.downloadInventoryReport', compact('stocks'));
+        return $pdf->download('Stock_Level_Report.pdf');
+    }
+
+    public function topSellProduct(Request $request)
+    {
+        // Ensure the order exists
+        [$stocks] = $this->inventoryReport($request);
+
+        return view('report.inventoryReport.topSellProduct', compact('stocks'));
+    }
+
+    public function downloadTopSellProductReport(Request $request)
+    {
+
+        [$stocks] = $this->inventoryReport($request);
+
+        $pdf = Pdf::loadView('report.inventoryReport.downloadTopSellProductReport', compact('stocks'));
+        return $pdf->download('Top_Sell_Report.pdf');
+    }
+
+    public function reorder(Request $request)
+    {
+        // Ensure the order exists
+        $stocks = Inventory::select('inventories.product_id')
+            ->join('products', 'inventories.product_id', '=', 'products.id')
+            ->selectRaw('SUM(qty) as total_qty')
+            ->selectRaw('SUM(issue_qty) as total_issued')
+            ->selectRaw('SUM(qty) - SUM(issue_qty) as available_qty')
+            ->selectRaw('products.reorder_level as reorder_level')
+            ->groupBy('inventories.product_id', 'products.reorder_level')
+            ->havingRaw('available_qty < reorder_level')
+            ->with('product')
+            ->get();
+
+
+        return view('report.inventoryReport.reorderReport', compact('stocks'));
+    }
+
+    public function downloadReorderReport(Request $request)
+    {
+
+        $stocks = Inventory::select('inventories.product_id')
+            ->join('products', 'inventories.product_id', '=', 'products.id')
+            ->selectRaw('SUM(qty) as total_qty')
+            ->selectRaw('SUM(issue_qty) as total_issued')
+            ->selectRaw('SUM(qty) - SUM(issue_qty) as available_qty')
+            ->selectRaw('products.reorder_level as reorder_level')
+            ->groupBy('inventories.product_id', 'products.reorder_level')
+            ->havingRaw('available_qty < reorder_level')
+            ->with('product')
+            ->get();
+
+        $pdf = Pdf::loadView('report.inventoryReport.downloadReorderReport', compact('stocks'));
+        return $pdf->download('Reorder_Report.pdf');
+    }
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 }

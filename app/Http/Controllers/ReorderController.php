@@ -77,7 +77,11 @@ class ReorderController extends Controller
             return back()->with('error', 'Selected inventory has no supplier assigned.');
         }
 
+<<<<<<< HEAD
         // Send notification to supplier's user account
+=======
+        // Send notification to productManager's user account
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
         $managers = User::where('role', 'product_manager')->get();
         foreach ($managers as $manager) {
             $manager->notify(new ReorderRequestNotification($reorder, $inventory));
@@ -96,7 +100,11 @@ class ReorderController extends Controller
         $reorder->update(
             [
                 'status' => 'Confirmed',
+<<<<<<< HEAD
                 'reorder_confirm_at' => now(),
+=======
+                'Reorder_confirm_at' => now(),
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
             ]
         );
 

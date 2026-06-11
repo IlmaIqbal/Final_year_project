@@ -57,7 +57,11 @@ Products
             </div>
 
             <div class="form-group">
+<<<<<<< HEAD
                 <img src="/image/{{ $product->image }}" width="300px">
+=======
+                <img src="{{asset('image/' .$product->image )}}" width="300px">
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 <input type="file" class="form-control-file" product_type="image" name="image" id="image">
 
             </div>

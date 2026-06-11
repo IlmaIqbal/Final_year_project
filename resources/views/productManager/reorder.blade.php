@@ -22,6 +22,7 @@ All Orders
 </div>
 @endif
 <style>
+<<<<<<< HEAD
     @import url('https://fonts.googleapis.com/css?family=Assistant');
 
     body {
@@ -73,6 +74,59 @@ All Orders
     .toggle-btn.active>.inner-circle {
         margin-left: 19px;
     }
+=======
+@import url('https://fonts.googleapis.com/css?family=Assistant');
+
+body {
+    background: #eee;
+    font-family: Assistant, sans-serif;
+}
+
+.cell-1 {
+    border-collapse: separate;
+    border-spacing: 0 4em;
+    background: #fff;
+    border-bottom: 5px solid transparent;
+    /*background-color: gold;*/
+    background-clip: padding-box;
+}
+
+thead {
+    background: #dddcdc;
+}
+
+.toggle-btn {
+    width: 40px;
+    height: 21px;
+    background: grey;
+    border-radius: 50px;
+    padding: 3px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s 0.1s ease-in-out;
+    -moz-transition: all 0.3s 0.1s ease-in-out;
+    -o-transition: all 0.3s 0.1s ease-in-out;
+    transition: all 0.3s 0.1s ease-in-out;
+}
+
+.toggle-btn>.inner-circle {
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+    -webkit-transition: all 0.3s 0.1s ease-in-out;
+    -moz-transition: all 0.3s 0.1s ease-in-out;
+    -o-transition: all 0.3s 0.1s ease-in-out;
+    transition: all 0.3s 0.1s ease-in-out;
+}
+
+.toggle-btn.active {
+    background: blue !important;
+}
+
+.toggle-btn.active>.inner-circle {
+    margin-left: 19px;
+}
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 </style>
 <div class="container mt-5">
     <div class="d-flex justify-content-center row">
@@ -126,7 +180,21 @@ All Orders
                                     @endif
 
                                 </td>
+<<<<<<< HEAD
                                 <td>{{$reorder->supplier_approved}}</td>
+=======
+                                <td>
+                                    @if ($reorder->supplier_approved == 0)
+                                    <label class="badge badge-warning">Pending</label>
+                                    @elseif ($reorder->supplier_approved == 1)
+                                    <label class="badge badge-success">Approved</label>
+                                    @else
+                                    <label class="badge bg-danger">Not Approved</label>
+
+                                    @endif
+
+                                </td>
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                                 <td>{{$reorder->Reorder_confirm_at}}</td>
                                 <td>{{$reorder->supplier_approved_at}}</td>
 

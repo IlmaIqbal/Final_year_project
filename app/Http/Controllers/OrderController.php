@@ -8,6 +8,10 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use App\Notifications\CashierNotification;
+<<<<<<< HEAD
+=======
+use App\Notifications\deliverNotification;
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 use App\Notifications\StockKeeperOrderNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +26,15 @@ class OrderController extends Controller
 
         $orders = Order::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.order', compact('orders', 'layout'));
+<<<<<<< HEAD
+=======
+    }
+    public function stockKeeper_view_order()
+
+    {
+        $orders = Order::orderBy('created_at', 'desc')->paginate(10);
+        return view('stockKeeper.order', compact('orders'));
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     }
 
     public function delivered($id)
@@ -52,10 +65,23 @@ class OrderController extends Controller
     {
         $id = Auth::user()->id;
 
-        $orders = Order::where('user_id', '=', $id)->get();
+        $orders = Order::where('user_id', '=', $id)->orderBy('created_at', 'desc')->paginate(10);
         return view('user.order', compact('orders'));
     }
 
+<<<<<<< HEAD
+=======
+    public function deliver_order()
+    {
+        $id = Auth::user()->id;
+
+        $orders = Order::where('deliver_by', '=', $id)->orderBy('created_at', 'desc')->paginate(10);
+        return view('deliver.order', compact('orders'));
+    }
+
+
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     public function show_details($orderId)
     {
         // Retrieve order from the database
@@ -71,6 +97,25 @@ class OrderController extends Controller
 
         return view('user.order-details', compact('order', 'orderItem'));
     }
+<<<<<<< HEAD
+=======
+    public function bank_recipe($orderId)
+    {
+        // Retrieve order from the database
+        $order = Order::find($orderId);
+
+        // Check if order exists
+        if (!$order) {
+            return redirect()->route('user.home')->with('error', 'Order not found.');
+        }
+
+        // Decode order items safely
+        $orderItem = $order->items ? json_decode($order->items, true) : [];
+
+        return view('user.bank_recipe', compact('order', 'orderItem'));
+    }
+
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     public function admin_order_details($orderId)
     {
         if (Auth::user()->role === 'admin') {
@@ -104,7 +149,11 @@ class OrderController extends Controller
 
         if ($request->action === 'Confirmed') {
 
+<<<<<<< HEAD
             $order->delivery = 'Confirmed';
+=======
+            $order->order_status = 'Confirmed';
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
             $order->issue_status = "Ongoing";   // Set issue status
 
             $order->confirmed_at = now();
@@ -184,11 +233,32 @@ class OrderController extends Controller
             'total_price' => $validated['total_price'],
             'delivery' => 'Processing',
             'issue_status' => 'Ongoing',
+<<<<<<< HEAD
             'payment' => in_array($validated['payment_method'], ['CashOnDelivery', 'BankTransfer']) ? 'Pending' : 'Paid'
         ]);
 
         return response()->json(['success' => true, 'order_id' => $order->id]);
     }
+=======
+            'payment' => in_array($validated['payment_method'], ['CashOnDelivery', 'BankTransfer']) ? 'Pending' : 'Paid',
+
+
+        ]);
+        if ($request->input('payment_method') === 'OnlinePayment') {
+            $order->paid_at = $request->input('paid_at');
+        }
+        $order->save();
+
+
+        return response()->json(['success' => true, 'order_id' => $order->id]);
+    }
+    public function onlineConfirmation(Request $request)
+    {
+        $orderId = $request->query('order_id'); // fetch from ?order_id=...
+
+        return view('user.online-confirmation', compact('orderId'));
+    }
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
     public function show_invoice(Order $order)
     {
@@ -206,7 +276,11 @@ class OrderController extends Controller
     public function update_issue_status(Request $request, $orderId)
     {
 
+<<<<<<< HEAD
         $order = \App\Models\Order::findOrFail($orderId);
+=======
+        $order = Order::findOrFail($orderId);
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 
         if ($request->action === 'Issued') {
             $order->issue_status = 'Issued';
@@ -230,15 +304,79 @@ class OrderController extends Controller
                 $inventory->issue_qty += $item['quantity'];
                 $inventory->save();
 
+<<<<<<< HEAD
                 // Notify all stock keepers
+=======
+                // Notify all Cashier
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
                 $cashiers = User::where('role', 'cashier')->get();
                 foreach ($cashiers as $cashier) {
                     $cashier->notify(new CashierNotification($order));
                 }
+<<<<<<< HEAD
+=======
+                // Notify all deliver
+                $delivers = User::where('role', 'deliver')->get();
+                foreach ($delivers as $deliver) {
+                    $deliver->notify(new deliverNotification($order));
+                }
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
             }
 
             $order->save();
             return redirect()->back()->with('success', '✅ Order successfully confirmed.');
         }
     }
+<<<<<<< HEAD
+=======
+
+    public function update_delivery(Request $request, $orderId)
+    {
+        $order = Order::findOrFail($orderId);
+
+
+        $order->update([
+            'delivery' => 'outForDelivery',
+            'vehicle_no' => $request->vehicle_no,
+            'estimate_date' => $request->estimate_date,
+            'deliver_by' => auth()->user()->id, // deliver by whom
+        ]);
+
+        return redirect()->back()->with('success', 'Order Accepted!');
+    }
+
+    public function recipe_update(Request $request, $orderId)
+    {
+        $order = Order::findOrFail($orderId);
+
+
+        $input = $request->all();
+
+        if ($image = $request->file('image')) {
+            $destinationPath = 'image/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        } else {
+            unset($input['image']);
+        }
+
+        $order->update($input);
+
+
+        return redirect()->back()->with('success', 'Successfully added!');
+    }
+    public function order_delivered(Request $request, $orderId)
+    {
+        $order = Order::findOrFail($orderId);
+
+        if ($request->action === 'Delivered') {
+            $order->delivery = 'Delivered';
+            $order->delivered_at = now();
+
+            $order->save();
+            return redirect()->back()->with('success', 'Order Delivered!');
+        }
+    }
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
 }

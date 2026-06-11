@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Gift;
+use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +27,8 @@ class GiftController extends Controller
         $gifts = Gift::where('active', true)->get(); // Assuming you have a gift model
         return view('user.products.gift', compact('gifts'));
     }
+
+
 
 
     /**

@@ -11,6 +11,7 @@ class Booking extends Model
     protected $primaryKey = 'booking_id';
 
     protected $fillable = [
+<<<<<<< HEAD
         'book_date',
         'customer_id',
         'total_price',
@@ -18,6 +19,39 @@ class Booking extends Model
         'additional_price',
         'status',
 
+=======
+        'user_id',
+        'user_name',
+        'user_email',
+
+        'customer_name',
+        'customer_email',
+        'phone_no',
+
+        'event_type',
+        'guest_no',
+        'start_date',
+        'end_date',
+
+        'venue_id',
+        'venue_name',
+        'venue_location',
+        'venue_price',
+
+        'catering_id',
+        'catering_name',
+        'catering_price',
+
+        'decoration_id',
+        'decoration_name',
+        'decoration_price',
+
+        'entertainment_id',
+        'entertainment_name',
+        'entertainment_price',
+        'total_price',
+        'status',
+>>>>>>> f1c4650e72b838410c295a1ed7df16871068ee76
     ];
     public function halls()
     {
